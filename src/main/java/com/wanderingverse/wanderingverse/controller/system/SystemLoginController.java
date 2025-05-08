@@ -1,9 +1,8 @@
 package com.wanderingverse.wanderingverse.controller.system;
 
 import com.wanderingverse.wanderingverse.common.AjaxResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统登录 Controller
@@ -13,5 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/system/login")
+@Slf4j
 public class SystemLoginController {
+    @PostMapping("")
+    public AjaxResult login(String username, String password) {
+        log.info("用户名：{}，密码：{}", username, password);
+        return AjaxResult.success("登录成功");
+    }
 }
