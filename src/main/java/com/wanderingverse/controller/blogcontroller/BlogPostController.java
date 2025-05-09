@@ -1,7 +1,7 @@
 package com.wanderingverse.controller.blogcontroller;
 
 import com.wanderingverse.common.AjaxResult;
-import com.wanderingverse.model.entity.BlogPostPO;
+import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.service.blogservice.BlogPostService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 博客文章 Controller
+ *
  * @author lihui
  * @date 2025/05/09 11:48
  **/
@@ -24,7 +25,6 @@ public class BlogPostController {
      */
     @GetMapping("/list")
     public AjaxResult getBlogPostList() {
-//        blogPostService.getBlogPostList();
         return null;
     }
 
@@ -32,8 +32,8 @@ public class BlogPostController {
      * 添加博客文章
      */
     @PostMapping("/add")
-    public AjaxResult addBlogPost(@RequestBody BlogPostPO blogPost) {
-        boolean result =blogPostService.addBlogPost(blogPost);
+    public AjaxResult addBlogPost(@RequestBody BlogPostRequestDTO blogPost) {
+        boolean result = blogPostService.addBlogPost(blogPost);
         if (!result) {
             return AjaxResult.error();
         }

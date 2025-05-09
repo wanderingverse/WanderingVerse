@@ -1,7 +1,9 @@
 package com.wanderingverse.service.blogservice.impl;
 
-import com.wanderingverse.model.entity.BlogPostPO;
+import com.wanderingverse.mapper.blogmapper.BlogPostMapper;
+import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.service.blogservice.BlogPostService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class BlogPostServiceImpl implements BlogPostService {
+    @Resource
+    private BlogPostMapper blogPostMapper;
+
     @Override
-    public boolean addBlogPost(BlogPostPO blogPost) {
-        return false;
+    public boolean addBlogPost(BlogPostRequestDTO blogPost) {
+//        blogPostMapper.insert(blogPost);
+        return true;
     }
 }

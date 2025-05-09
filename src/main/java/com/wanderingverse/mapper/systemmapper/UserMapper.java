@@ -1,20 +1,19 @@
-package com.wanderingverse.mapper.blogmapper;
+package com.wanderingverse.mapper.systemmapper;
 
 import com.github.yulichang.base.MPJBaseMapper;
-import com.wanderingverse.model.entity.BlogPostPO;
+import com.wanderingverse.model.entity.UserPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
-
 /**
  * @author lihui
- * @date 2025/05/09 15:14
+ * @date 2025/05/09 15:37
  */
 @Mapper
-public interface BlogPostMapper extends MPJBaseMapper<BlogPostPO> {
+public interface UserMapper extends MPJBaseMapper<UserPO> {
     /**
      * 清空表数据
      */
-    @Update("truncate table blog_post")
+    @Update("truncate table user")
     void truncate();
 }
