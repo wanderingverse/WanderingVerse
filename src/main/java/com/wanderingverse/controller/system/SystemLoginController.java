@@ -1,6 +1,6 @@
-package com.wanderingverse.wanderingverse.controller.system;
+package com.wanderingverse.controller.system;
 
-import com.wanderingverse.wanderingverse.common.AjaxResult;
+import com.wanderingverse.common.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

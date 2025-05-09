@@ -70,4 +70,17 @@ CREATE TABLE permission
     create_time     datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time     datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='权限表';
+
+drop table if exists blog_post;
+CREATE TABLE blog_post
+(
+    id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章表主键 id',
+    title         TEXT COMMENT '文章标题',
+    summary       TEXT COMMENT '文章摘要',
+    author_id     BIGINT UNSIGNED COMMENT '作者 id',
+    content_id    BIGINT UNSIGNED COMMENT '正文 id',
+    delete_status TINYINT COMMENT '删除状态',
+    create_time   DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='博客文章表';
 COMMIT;
