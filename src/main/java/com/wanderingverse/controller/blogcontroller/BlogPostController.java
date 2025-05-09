@@ -34,6 +34,9 @@ public class BlogPostController {
     @PostMapping("/add")
     public AjaxResult addBlogPost(@RequestBody BlogPostPO blogPost) {
         boolean result =blogPostService.addBlogPost(blogPost);
+        if (!result) {
+            return AjaxResult.error();
+        }
         return AjaxResult.success();
     }
 }
