@@ -1,0 +1,16 @@
+server:
+  port: 3721
+
+spring:
+  application:
+    name: WanderingVerse
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/wandering_verse
+    username: root
+    password: 123456
+
+logging:
+  level:
+    root: info
+    com.wanderingverse: debug
