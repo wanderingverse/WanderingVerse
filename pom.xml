@@ -58,6 +58,14 @@
             <version>1.5.3</version>
         </dependency>
 
+        <!-- Datafaker -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+
+
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,4 +1,4 @@
-package com.wanderingverse.controller.systemcontroller;
+package com.wanderingverse;
 
 import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.service.systemservice.SystemResetService;
