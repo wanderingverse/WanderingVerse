@@ -65,6 +65,12 @@
             <version>2.4.3</version>
         </dependency>
 
+        <!-- Flowable -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
+            <version>7.1.0</version>
+        </dependency>
 
         <!-- lombok -->
         <dependency>
