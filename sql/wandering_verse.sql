@@ -15,7 +15,7 @@ CREATE TABLE user
     delete_status      TINYINT COMMENT '删除状态',
     login_time         DATETIME COMMENT '最后一次登录时间',
     login_ipv4         VARCHAR(16) COMMENT '最后一次登录 IPv4',
-    login_ipv4_decimal INT UNSIGNED COMMENT '最后一次登录 IPv4整型值',
+    login_ipv4_decimal INT UNSIGNED COMMENT '最后一次登录 IPv4 整型值',
     create_user_id     BIGINT UNSIGNED COMMENT '创建用户 id',
     update_user_id     BIGINT UNSIGNED COMMENT '更新用户 id',
     remark             TEXT COMMENT '备注',
