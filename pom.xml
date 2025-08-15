@@ -58,7 +58,7 @@
             <version>1.5.3</version>
         </dependency>
 
-        <!-- Datafaker -->
+        <!-- DataFaker -->
         <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>

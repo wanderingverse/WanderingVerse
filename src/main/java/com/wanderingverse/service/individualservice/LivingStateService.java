@@ -4,10 +4,11 @@ import com.wanderingverse.model.entity.LivingStateDO;
 
 import java.util.List;
 
+
 /**
  * @author lihui
- * @date 2025/5/13 0:12
- **/
+ * @since 2025/8/15 16:16
+ */
 public interface LivingStateService {
 
     /**

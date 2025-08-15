@@ -4,11 +4,12 @@ import com.wanderingverse.model.entity.BlogPostDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+
 /**
  * 博客文章响应体对象
  *
  * @author lihui
- * @date 2025/05/14 12:40
+ * @since 2025/8/15 16:17
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

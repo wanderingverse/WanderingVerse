@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.model.dto.response.BlogPostResponseDTO;
 
+
 /**
  * 博客文章 Service
  *
  * @author lihui
- * @date 2025/05/09 13:25
- **/
+ * @since 2025/8/15 16:17
+ */
 public interface BlogPostService {
 
     /**
