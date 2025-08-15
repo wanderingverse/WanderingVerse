@@ -1,4 +1,5 @@
-START TRANSACTION;
+CREATE DATABASE IF NOT EXISTS wandering_verse CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE wandering_verse;
 
 drop table if exists user;
 CREATE TABLE user
@@ -139,4 +140,3 @@ CREATE TABLE sys_operation_log
     create_time        DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time        DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='操作日志表';
-COMMIT;

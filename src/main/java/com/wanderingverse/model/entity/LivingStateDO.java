@@ -1,6 +1,7 @@
 package com.wanderingverse.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class LivingStateDO {
     /**
      * 生活状态表主键 id
      */
-    @TableField("id")
+    @TableId("id")
     private Object id;
 
     /**

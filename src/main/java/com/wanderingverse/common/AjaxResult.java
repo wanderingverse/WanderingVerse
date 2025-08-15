@@ -5,12 +5,13 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
 
+
 /**
- * 请求响应体封装类
+ * 响应体封装类
  *
  * @author lihui
- * @date 2025/5/7 22:13
- **/
+ * @since 2025/8/15 15:22
+ */
 public class AjaxResult extends HashMap<String, Object> {
 
     /**

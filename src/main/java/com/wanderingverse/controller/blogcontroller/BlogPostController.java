@@ -9,12 +9,13 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+
 /**
  * 博客文章 Controller
  *
  * @author lihui
- * @date 2025/05/09 11:48
- **/
+ * @since 2025/8/15 15:24
+ */
 @RestController
 @RequestMapping("/blog/post")
 @Slf4j

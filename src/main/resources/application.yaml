@@ -4,13 +4,17 @@ server:
 spring:
   application:
     name: WanderingVerse
+  profiles:
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.100.128:3306/wandering_verse
+    url: jdbc:mysql://localhost:3306/wandering_verse
     username: root
     password: 123456
+
+
 
 logging:
   level:
     root: info
-    com.wanderingverse: debug
+    com.wanderingverse: info

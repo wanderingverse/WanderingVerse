@@ -1,6 +1,7 @@
 package com.wanderingverse.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -17,7 +18,7 @@ public class BlogPostContentDO {
     /**
      * 博客文章内容表主键 id
      */
-    @TableField("id")
+    @TableId("id")
     private String id;
 
     /**
