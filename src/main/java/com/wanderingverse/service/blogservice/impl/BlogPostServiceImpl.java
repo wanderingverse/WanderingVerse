@@ -60,7 +60,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     public IPage<BlogPostResponseDTO> getBlogPostList(Integer pageNum, Integer pageSize) {
         MPJLambdaWrapper<BlogPostDO> blogPostQueryWrapper = new MPJLambdaWrapper<BlogPostDO>()
                 .selectAll(BlogPostDO.class)
-                .innerJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
+                .leftJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
                 .select(BlogPostContentDO::getContent);
         IPage<BlogPostResponseDTO> blogPostPage = blogPostMapper.selectJoinPage(new Page<>(pageNum, pageSize), BlogPostResponseDTO.class, blogPostQueryWrapper);
         if (ObjectUtils.isEmpty(blogPostPage)) {

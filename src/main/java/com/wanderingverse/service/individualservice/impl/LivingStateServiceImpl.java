@@ -2,14 +2,18 @@ package com.wanderingverse.service.individualservice.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wanderingverse.mapper.individualmapper.LivingStateMapper;
+import com.wanderingverse.model.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 import com.wanderingverse.service.individualservice.LivingStateService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.wanderingverse.util.TreeStructureUtils.*;
 
 
 /**
@@ -39,13 +43,26 @@ public class LivingStateServiceImpl implements LivingStateService {
     }
 
     @Override
-    public List<LivingStateDO> getLivingStateList() {
-        List<LivingStateDO> livingStateList = new ArrayList<>();
+    public List<TreeNode<LivingStateDO>> getLivingStateList(String id, Integer mode) {
         LambdaQueryWrapper<LivingStateDO> livingStateLambdaQueryWrapper = new LambdaQueryWrapper<LivingStateDO>();
-        livingStateList = livingStateMapper.selectList(livingStateLambdaQueryWrapper);
-        if (ObjectUtils.isEmpty(livingStateList)) {
-            return livingStateList;
+        List<LivingStateDO> livingStateList = livingStateMapper.selectList(livingStateLambdaQueryWrapper);
+        List<TreeNode<LivingStateDO>> nodeList = new ArrayList<>();
+        for (LivingStateDO livingState : livingStateList) {
+            TreeNode<LivingStateDO> node = new TreeNode<>();
+            node.setId(livingState.getId());
+            node.setContent(livingState);
+            node.setParentId(livingState.getParentId());
+            nodeList.add(node);
         }
-        return livingStateList;
+        List<TreeNode<LivingStateDO>> treeNodeList = new ArrayList<>();
+        if (StringUtils.hasText(id)) {
+            treeNodeList = buildTreeByRoot(nodeList, id);
+        } else {
+            treeNodeList = buildTree(nodeList);
+        }
+        if (mode == 2) {
+            return reverseBuildTree(treeNodeList);
+        }
+        return treeNodeList;
     }
 }

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
  * @author lihui
  * @since 2025/8/15 15:24
  */
+@Slf4j
 @RestController
 @RequestMapping("/blog/post")
-@Slf4j
 public class BlogPostController {
     @Resource
     private BlogPostService blogPostService;

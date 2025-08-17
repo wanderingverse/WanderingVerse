@@ -1,5 +1,6 @@
 package com.wanderingverse.service.individualservice;
 
+import com.wanderingverse.model.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 
 import java.util.List;
@@ -23,7 +24,9 @@ public interface LivingStateService {
     /**
      * 获取生活状态列表
      *
-     * @return List<LivingStateDO>
+     * @param id   节点 id
+     * @param mode 列表结构。1：树结构，2：扁平列表结构
+     * @return List<TreeNode < LivingStateDO>>
      */
-    List<LivingStateDO> getLivingStateList();
+    List<TreeNode<LivingStateDO>> getLivingStateList(String id, Integer mode);
 }
