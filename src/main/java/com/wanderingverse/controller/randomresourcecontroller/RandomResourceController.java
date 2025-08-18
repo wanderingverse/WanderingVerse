@@ -5,15 +5,12 @@ import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.service.randomresourceservice.RandomResourcesService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import static java.lang.Thread.sleep;
+import reactor.core.publisher.Mono;
 
 
 /**
@@ -34,14 +31,8 @@ public class RandomResourceController {
      * 获取随机图片
      */
     @GetMapping("/image")
-    public AjaxResult getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) throws IOException, URISyntaxException, InterruptedException {
-        log.info("收到请求: width={}, height={}, thread={}", width, height, Thread.currentThread().getName());
-        sleep(10000);
-        return null;
-//        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage(width, height);
-//        if (ObjectUtils.isEmpty(responseEntity)) {
-//            return AjaxResult.error("随机图片获取失败");
-//        }
-//        return AjaxResult.success("获取随机图片", responseEntity);
+    public Mono<AjaxResult> getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) {
+        Mono<ResponseEntity<byte[]>> responseEntityMono = randomResourcesService.getRandomImage(width, height);
+        return responseEntityMono.map(responseEntity -> AjaxResult.success("获取随机图片", responseEntity)).defaultIfEmpty(AjaxResult.error("随机图片获取失败"));
     }
 }

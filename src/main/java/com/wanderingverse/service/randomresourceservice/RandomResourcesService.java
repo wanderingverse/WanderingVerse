@@ -2,9 +2,7 @@ package com.wanderingverse.service.randomresourceservice;
 
 
 import org.springframework.http.ResponseEntity;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+import reactor.core.publisher.Mono;
 
 
 /**
@@ -18,9 +16,7 @@ public interface RandomResourcesService {
      *
      * @param width  宽度
      * @param height 高度
-     * @return ResponseEntity<byte [ ]>
-     * @throws URISyntaxException URISyntaxException
-     * @throws IOException        IOException
+     * @return Mono<ResponseEntity < byte [ ]>>
      */
-    ResponseEntity<byte[]> getRandomImage(String width, String height) throws URISyntaxException, IOException;
+    Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height);
 }

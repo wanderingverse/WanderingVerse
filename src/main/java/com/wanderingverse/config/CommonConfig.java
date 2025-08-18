@@ -31,4 +31,14 @@ public class CommonConfig {
      * 写入超时时间（ms）
      */
     public static final int WRITE_TIMEOUT_MILLIS = 10000;
+
+    /**
+     * 超时重试次数
+     */
+    public static final int RETRY_COUNT = 1;
+
+    /**
+     * 超时重试间隔（ms）
+     */
+    public static final int RETRY_DELAY_MILLIS = 1000;
 }

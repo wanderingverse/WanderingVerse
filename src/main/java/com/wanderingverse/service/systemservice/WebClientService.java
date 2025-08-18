@@ -1,6 +1,6 @@
 package com.wanderingverse.service.systemservice;
 
-import javax.net.ssl.SSLException;
+import reactor.core.publisher.Mono;
 
 /**
  * @author lihui
@@ -15,8 +15,7 @@ public interface WebClientService {
      * @param httpMethod    请求方式
      * @param requestBody   请求体
      * @param responseType  响应类型
-     * @return T
-     * @throws SSLException SSLException
+     * @return Mono<T>
      */
-    <T> T fetch(String authorization, String url, String httpMethod, Object requestBody, Class<T> responseType) throws SSLException;
+    <T> Mono<T> fetch(String authorization, String url, String httpMethod, Object requestBody, Class<T> responseType);
 }

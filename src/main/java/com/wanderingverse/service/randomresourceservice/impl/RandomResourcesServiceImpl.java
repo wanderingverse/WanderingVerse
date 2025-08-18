@@ -8,12 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+import reactor.core.publisher.Mono;
 
 import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_0;
-import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_1;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
 
 
@@ -28,21 +25,13 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     private WebClientService webClientService;
 
     @Override
-    public ResponseEntity<byte[]> getRandomImage(String width, String height) throws URISyntaxException, IOException {
+    public Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height) {
         String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).pathSegment(width, height).build().toUriString();
-        byte[] imageBytes;
-        try {
-            imageBytes = readImageFromUrl(url);
-        } catch (IOException e) {
-            log.info("图片获取失败：", e);
-            url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_1).build().toUriString();
-            imageBytes = readImageFromUrl(url);
-        }
-        return buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG);
+        return readImageFromUrl(url).onErrorResume(throwable -> Mono.empty()).map(imageBytes -> buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
     }
 
 
-    private byte[] readImageFromUrl(String url) throws IOException {
+    private Mono<byte[]> readImageFromUrl(String url) {
         return webClientService.fetch(null, url, "GET", null, byte[].class);
     }
 }
