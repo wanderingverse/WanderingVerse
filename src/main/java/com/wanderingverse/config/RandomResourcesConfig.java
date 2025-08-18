@@ -8,7 +8,7 @@ package com.wanderingverse.config;
 public class RandomResourcesConfig {
 
     /**
-     * 随即图片 url
+     * 随机图片 url
      */
     public static final String RANDOM_IMAGE_URL_0 = "https://picsum.photos";
 
