@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 
 /**
- * 启动时信息输出日志
+ * 启动信息输出日志
  *
  * @author lihui
  * @since 2025/8/15 15:17

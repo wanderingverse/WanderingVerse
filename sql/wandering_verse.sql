@@ -1,3 +1,4 @@
+drop database if exists wandering_verse;
 CREATE DATABASE IF NOT EXISTS wandering_verse CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE wandering_verse;
 

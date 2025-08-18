@@ -6,6 +6,11 @@ import org.springframework.http.ResponseEntity;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+
+/**
+ * @author lihui
+ * @since 2025/8/18 10:14
+ */
 public interface RandomResourcesService {
 
     /**

@@ -11,4 +11,24 @@ public class CommonConfig {
      * HashMap 初始大小
      */
     public static final int HASHMAP_INITIAL_CAPACITY = 16;
+
+    /**
+     * 连接超时时间（ms）
+     */
+    public static final int CONNECT_TIMEOUT_MILLIS = 10000;
+
+    /**
+     * 响应超时时间（ms）
+     */
+    public static final int RESPONSE_TIMEOUT_MILLIS = 10000;
+
+    /**
+     * 读取超时时间（ms）
+     */
+    public static final int READ_TIMEOUT_MILLIS = 10000;
+
+    /**
+     * 写入超时时间（ms）
+     */
+    public static final int WRITE_TIMEOUT_MILLIS = 10000;
 }

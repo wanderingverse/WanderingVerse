@@ -1,11 +1,18 @@
 server:
   port: 3721
+  ssl:
+    key-store: classpath:wandering_verse.p12
+    key-store-password:
+    key-store-type:
+    key-alias:
+  http2:
+    enabled: true
 
 spring:
   application:
     name: WanderingVerse
   profiles:
-    active: prod
+    active:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wandering_verse
