@@ -12,13 +12,18 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active: prod
+    active:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wandering_verse
     username: root
     password: 123456
 
+minio:
+  url: http://39.106.10.8:9000
+  access-key: minio_root_user
+  secret-key: minio_root_password
+  bucket-name: bucket-default
 
 
 logging:

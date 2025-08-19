@@ -1,5 +1,6 @@
 package com.wanderingverse.service.randomresourceservice.impl;
 
+import com.wanderingverse.config.MinioConfig;
 import com.wanderingverse.service.randomresourceservice.RandomResourcesService;
 import com.wanderingverse.service.systemservice.WebClientService;
 import jakarta.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_0;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
@@ -23,11 +25,23 @@ import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
 public class RandomResourcesServiceImpl implements RandomResourcesService {
     @Resource
     private WebClientService webClientService;
+    @Resource
+    private MinioConfig minioConfig;
 
     @Override
     public Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height) {
         String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).pathSegment(width, height).build().toUriString();
-        return readImageFromUrl(url).onErrorResume(throwable -> Mono.empty()).map(imageBytes -> buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
+        return readImageFromUrl(url)
+                .flatMap(imageBytes -> {
+                    Mono.fromRunnable(() -> minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageBytes))
+                        .subscribeOn(Schedulers.boundedElastic())
+                        .subscribe();
+                    return Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
+                })
+                .onErrorResume(throwable -> {
+                    byte[] imageBytes = minioConfig.downloadRandomFile();
+                    return Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
+                });
     }
 
 
