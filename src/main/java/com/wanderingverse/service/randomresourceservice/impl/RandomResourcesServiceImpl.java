@@ -31,21 +31,26 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     @Override
     public Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height) {
         String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).pathSegment(width, height).build().toUriString();
-        return readImageFromUrl(url)
-                .flatMap(imageBytes -> {
-                    Mono.fromRunnable(() -> minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageBytes))
-                        .subscribeOn(Schedulers.boundedElastic())
-                        .subscribe();
-                    return Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
-                })
-                .onErrorResume(throwable -> {
-                    byte[] imageBytes = minioConfig.downloadRandomFile();
-                    return Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG));
-                });
+        return readImage(url)
+                .flatMap(imageBytes -> Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG)))
+                .onErrorResume(throwable -> Mono.empty());
     }
 
 
-    private Mono<byte[]> readImageFromUrl(String url) {
-        return webClientService.fetch(null, url, "GET", null, byte[].class);
+    private Mono<byte[]> readImage(String url) {
+        byte[] imageBytes = minioConfig.downloadRandomFile();
+        webClientService.fetch(null, url, "GET", null, byte[].class)
+                .doOnNext(imageOfFetch -> {
+                    Mono.fromRunnable(() -> minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageOfFetch))
+                            .subscribeOn(Schedulers.boundedElastic())
+                            .subscribe();
+                })
+                .subscribeOn(Schedulers.boundedElastic())
+                .subscribe();
+        if (imageBytes == null) {
+            return Mono.empty();
+        } else {
+            return Mono.just(imageBytes);
+        }
     }
 }
