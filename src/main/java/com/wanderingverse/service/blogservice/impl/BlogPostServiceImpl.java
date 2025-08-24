@@ -3,6 +3,7 @@ package com.wanderingverse.service.blogservice.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import com.wanderingverse.config.MinioConfig;
 import com.wanderingverse.mapper.blogmapper.BlogPostContentMapper;
 import com.wanderingverse.mapper.blogmapper.BlogPostMapper;
 import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
@@ -15,6 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -28,6 +33,8 @@ public class BlogPostServiceImpl implements BlogPostService {
     private BlogPostMapper blogPostMapper;
     @Resource
     private BlogPostContentMapper blogPostContentMapper;
+    @Resource
+    private MinioConfig minioConfig;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -80,6 +87,29 @@ public class BlogPostServiceImpl implements BlogPostService {
         if (ObjectUtils.isEmpty(blogPostPage)) {
             return new BlogPostResponseDTO();
         }
+        String content = replacePreSignedUrl(blogPostPage.getContent());
+        blogPostPage.setContent(content);
         return blogPostPage;
+    }
+
+    /**
+     * 替换预签名图片 url
+     */
+    private String replacePreSignedUrl(String content) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String regex = "!\\[[^]]*]\\(([\\w\\-]+\\.(?:jpg|png|gif|jpeg|webp))\\)";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            String originalText = matcher.group();
+            String replacement = minioConfig.getPreSignedUrl(matcher.group(1), null);
+            if (!StringUtils.hasText(replacement)) {
+                continue;
+            }
+            String newMarkdown = originalText.replace(matcher.group(1), replacement);
+            matcher.appendReplacement(stringBuilder, Matcher.quoteReplacement(newMarkdown));
+        }
+        matcher.appendTail(stringBuilder);
+        return stringBuilder.toString();
     }
 }

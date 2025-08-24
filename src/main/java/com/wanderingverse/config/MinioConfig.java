@@ -1,17 +1,20 @@
 package com.wanderingverse.config;
 
 import io.minio.*;
+import io.minio.http.Method;
 import io.minio.messages.Item;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lihui
@@ -47,11 +50,14 @@ public class MinioConfig {
      * @param bytes    文件字节数组
      */
     public boolean uploadFile(String fileName, byte[] bytes) {
+        if (!StringUtils.hasText(fileName) || bytes == null) {
+            return false;
+        }
         PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-                                                   .bucket(bucketName)
-                                                   .object(fileName)
-                                                   .stream(new ByteArrayInputStream(bytes), bytes.length, -1)
-                                                   .build();
+                .bucket(bucketName)
+                .object(fileName)
+                .stream(new ByteArrayInputStream(bytes), bytes.length, -1)
+                .build();
         try {
             minioClient.putObject(putObjectArgs);
         } catch (Exception e) {
@@ -71,9 +77,9 @@ public class MinioConfig {
      */
     public byte[] downloadFile(String fileName) {
         GetObjectArgs getObjectArgs = GetObjectArgs.builder()
-                                                   .bucket(bucketName)
-                                                   .object(fileName)
-                                                   .build();
+                .bucket(bucketName)
+                .object(fileName)
+                .build();
         try (GetObjectResponse objectResponse = minioClient.getObject(getObjectArgs)) {
             return objectResponse.readAllBytes();
         } catch (Exception e) {
@@ -98,6 +104,29 @@ public class MinioConfig {
         return downloadFile(fileName);
     }
 
+
+    public String getPreSignedUrl(String fileName, Integer expires) {
+        if (!StringUtils.hasText(fileName)) {
+            return null;
+        }
+        if (expires == null || expires <= 0) {
+            expires = 60;
+        }
+        GetPresignedObjectUrlArgs getPresignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
+                .method(Method.GET)
+                .bucket(bucketName)
+                .object(fileName)
+                .expiry(expires, TimeUnit.SECONDS)
+                .build();
+        try {
+            return minioClient.getPresignedObjectUrl(getPresignedObjectUrlArgs);
+        } catch (Exception e) {
+            log.error("获取文件 url 失败：", e);
+            return null;
+        }
+    }
+
+
     /**
      * 获取 bucket 中所有文件
      *
@@ -120,5 +149,4 @@ public class MinioConfig {
         }
         return fileNameList;
     }
-
 }

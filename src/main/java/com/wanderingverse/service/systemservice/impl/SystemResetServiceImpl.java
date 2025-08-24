@@ -7,7 +7,6 @@ import com.wanderingverse.mapper.systemmapper.UserMapper;
 import com.wanderingverse.service.systemservice.SystemResetService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -19,14 +18,13 @@ public class SystemResetServiceImpl implements SystemResetService {
     @Resource
     private BlogPostMapper blogPostMapper;
     @Resource
-    private UserMapper userMapper;
+    private BlogPostContentMapper blogPostContentMapper;
     @Resource
     private LivingStateMapper livingStateMapper;
     @Resource
-    private BlogPostContentMapper blogPostContentMapper;
+    private UserMapper userMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean resetDatabase() {
         userMapper.truncate();
         blogPostMapper.truncate();

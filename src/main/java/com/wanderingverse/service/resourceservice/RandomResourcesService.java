@@ -1,4 +1,4 @@
-package com.wanderingverse.service.randomresourceservice;
+package com.wanderingverse.service.resourceservice;
 
 
 import org.springframework.http.ResponseEntity;

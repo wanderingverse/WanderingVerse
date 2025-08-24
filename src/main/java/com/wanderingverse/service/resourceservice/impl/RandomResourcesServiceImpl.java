@@ -1,7 +1,7 @@
-package com.wanderingverse.service.randomresourceservice.impl;
+package com.wanderingverse.service.resourceservice.impl;
 
 import com.wanderingverse.config.MinioConfig;
-import com.wanderingverse.service.randomresourceservice.RandomResourcesService;
+import com.wanderingverse.service.resourceservice.RandomResourcesService;
 import com.wanderingverse.service.systemservice.WebClientService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
