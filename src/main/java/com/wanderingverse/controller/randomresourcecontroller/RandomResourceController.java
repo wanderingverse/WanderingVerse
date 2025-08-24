@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 
 /**
@@ -31,8 +30,8 @@ public class RandomResourceController {
      * 获取随机图片
      */
     @GetMapping("/image")
-    public Mono<AjaxResult> getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) {
-        Mono<ResponseEntity<byte[]>> responseEntityMono = randomResourcesService.getRandomImage(width, height);
-        return responseEntityMono.map(responseEntity -> AjaxResult.success("获取随机图片", responseEntity)).defaultIfEmpty(AjaxResult.error("随机图片获取失败"));
+    public AjaxResult getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) {
+        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage(width, height).block();
+        return AjaxResult.success(responseEntity);
     }
 }
