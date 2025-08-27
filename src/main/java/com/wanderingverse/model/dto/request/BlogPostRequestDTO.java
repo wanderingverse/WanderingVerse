@@ -1,6 +1,7 @@
 package com.wanderingverse.model.dto.request;
 
 import com.wanderingverse.model.entity.BlogPostDO;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,5 +18,6 @@ public class BlogPostRequestDTO extends BlogPostDO {
     /**
      * 正文内容
      */
+    @NotBlank(message = "正文内容为空")
     private String content;
 }

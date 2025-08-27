@@ -6,6 +6,7 @@ import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.model.dto.response.BlogPostResponseDTO;
 import com.wanderingverse.service.blogservice.BlogPostService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class BlogPostController {
      * 添加博客文章
      */
     @PostMapping("/add")
-    public AjaxResult addBlogPost(@RequestBody BlogPostRequestDTO blogPost) {
+    public AjaxResult addBlogPost(@RequestBody @Valid BlogPostRequestDTO blogPost) {
         boolean result = blogPostService.addBlogPost(blogPost);
         return result ? AjaxResult.success("添加成功") : AjaxResult.error("添加失败");
     }

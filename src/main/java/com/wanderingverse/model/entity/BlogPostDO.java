@@ -3,6 +3,7 @@ package com.wanderingverse.model.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class BlogPostDO {
     /**
      * 文章标题
      */
+    @NotBlank(message = "标题内容为空")
     @TableField("title")
     private String title;
 
