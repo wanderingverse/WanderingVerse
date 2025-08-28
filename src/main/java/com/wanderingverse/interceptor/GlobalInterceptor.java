@@ -3,8 +3,6 @@ package com.wanderingverse.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +25,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
      * @return boolean
      */
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws InterruptedException {
+        Thread.sleep(1000);
         return true;
     }
 
@@ -41,7 +40,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
      * @param modelAndView modelAndView
      */
     @Override
-    public void postHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, @NonNull ModelAndView modelAndView) throws InterruptedException {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
     }
 
 
@@ -54,6 +53,6 @@ public class GlobalInterceptor implements HandlerInterceptor {
      * @param ex       若没有异常则为 null
      */
     @Override
-    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, @NonNull @Nullable Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
     }
 }
