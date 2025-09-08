@@ -91,6 +91,14 @@
             <artifactId>minio</artifactId>
             <version>8.5.17</version>
         </dependency>
+
+
+        <!-- BizLog -->
+        <dependency>
+            <groupId>io.github.mouzt</groupId>
+            <artifactId>bizlog-sdk</artifactId>
+            <version>3.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>
