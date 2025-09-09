@@ -34,19 +34,9 @@ public class SystemLoginController {
             fail = "用户登录失败。失败原因：{{#_errorMsg}}",
             type = "用户测试",
             bizNo = "0001")
-    @LogRecord(success = "{{#user.username}}执行了测试方法2，请求了：{{#user.username}}，返回：{{#_ret}}",
-            fail = "用户登录失败。失败原因：{{#_errorMsg}}",
-            type = "用户测试",
-            bizNo = "0002")
-    @LogRecord(success = "{{#user.username}}执行了测试方法3，请求了：{{#user.username}}，返回：{{#_ret}}",
-            fail = "用户登录失败。失败原因：{{#_errorMsg}}",
-            type = "用户测试",
-            bizNo = "0003")
     @PostMapping("")
     public AjaxResult login(@RequestBody UserDO user) {
-//        systemLoginService.login(user);
-        Integer a = null;
-        byte b = a.byteValue();
+        String token = systemLoginService.login(user);
         return AjaxResult.success("登录成功");
 //        throw new IllegalArgumentException("测试异常");
     }
