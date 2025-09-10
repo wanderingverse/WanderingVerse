@@ -2,7 +2,6 @@ package com.wanderingverse.service.resourceservice;
 
 
 import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Mono;
 
 
 /**
@@ -16,7 +15,7 @@ public interface RandomResourcesService {
      *
      * @param width  宽度
      * @param height 高度
-     * @return Mono<ResponseEntity < byte [ ]>>
+     * @return ResponseEntity < byte [ ]>
      */
-    Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height);
+    ResponseEntity<byte[]> getRandomImage(String width, String height);
 }

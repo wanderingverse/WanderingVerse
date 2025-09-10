@@ -31,7 +31,7 @@ public class RandomResourceController {
      */
     @GetMapping("/image")
     public AjaxResult getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) {
-        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage(width, height).block();
+        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage(width, height);
         return AjaxResult.success(responseEntity);
     }
 }

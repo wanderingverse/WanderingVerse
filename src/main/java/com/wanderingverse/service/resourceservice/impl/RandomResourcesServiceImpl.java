@@ -9,8 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_0;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
@@ -29,28 +27,21 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     private MinioConfig minioConfig;
 
     @Override
-    public Mono<ResponseEntity<byte[]>> getRandomImage(String width, String height) {
+    public ResponseEntity<byte[]> getRandomImage(String width, String height) {
         String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).pathSegment(width, height).build().toUriString();
-        return readImage(url)
-                .flatMap(imageBytes -> Mono.just(buildResponseEntity(imageBytes, MediaType.IMAGE_JPEG)))
-                .onErrorResume(throwable -> Mono.empty());
+        return buildResponseEntity(readImage(url), MediaType.IMAGE_JPEG);
     }
 
 
-    private Mono<byte[]> readImage(String url) {
+    private byte[] readImage(String url) {
         byte[] imageBytes = minioConfig.downloadRandomFile();
-        webClientService.fetch(null, url, "GET", null, byte[].class)
-                .doOnNext(imageOfFetch -> {
-                    Mono.fromRunnable(() -> minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageOfFetch))
-                            .subscribeOn(Schedulers.boundedElastic())
-                            .subscribe();
-                })
-                .subscribeOn(Schedulers.boundedElastic())
-                .subscribe();
         if (imageBytes == null) {
-            return Mono.empty();
-        } else {
-            return Mono.just(imageBytes);
+            byte[] imageOfFetch = webClientService.fetch(null, url, "GET", null, byte[].class);
+            if (imageOfFetch != null) {
+                minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageOfFetch);
+                imageBytes = imageOfFetch;
+            }
         }
+        return imageBytes;
     }
 }

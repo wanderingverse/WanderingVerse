@@ -1,7 +1,5 @@
 package com.wanderingverse.service.systemservice;
 
-import reactor.core.publisher.Mono;
-
 /**
  * @author lihui
  * @since 2025/8/18 10:30
@@ -15,7 +13,7 @@ public interface WebClientService {
      * @param httpMethod    请求方式
      * @param requestBody   请求体
      * @param responseType  响应类型
-     * @return Mono<T>
+     * @return <T> byte[]
      */
-    <T> Mono<T> fetch(String authorization, String url, String httpMethod, Object requestBody, Class<T> responseType);
+    <T> byte[] fetch(String authorization, String url, String httpMethod, Object requestBody, Class<T> responseType);
 }
