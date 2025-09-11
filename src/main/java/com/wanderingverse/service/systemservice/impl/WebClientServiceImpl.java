@@ -45,7 +45,6 @@ public class WebClientServiceImpl implements WebClientService {
         }
         if (httpMethod == GET || httpMethod == DELETE) {
             httpRequestBuilder.method(httpMethod.name(), HttpRequest.BodyPublishers.noBody());
-
         } else if (httpMethod == POST || httpMethod == PUT) {
             String json = "";
             try {
@@ -54,7 +53,6 @@ public class WebClientServiceImpl implements WebClientService {
             }
             httpRequestBuilder.header("Content-Type", "application/json").method(httpMethod.name(), HttpRequest.BodyPublishers.ofString(json));
         }
-
         HttpRequest httpRequest = httpRequestBuilder.build();
         log.debug("授权信息: {}", authorization);
         log.debug("请求方法: {}", httpMethod);
