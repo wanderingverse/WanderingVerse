@@ -23,16 +23,6 @@ public class CommonConfig {
     public static final int RESPONSE_TIMEOUT_MILLIS = 10000;
 
     /**
-     * 读取超时时间（ms）
-     */
-    public static final int READ_TIMEOUT_MILLIS = 10000;
-
-    /**
-     * 写入超时时间（ms）
-     */
-    public static final int WRITE_TIMEOUT_MILLIS = 10000;
-
-    /**
      * 超时重试次数
      */
     public static final int RETRY_COUNT = 1;

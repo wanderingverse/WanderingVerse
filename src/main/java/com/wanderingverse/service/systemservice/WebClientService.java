@@ -1,5 +1,7 @@
 package com.wanderingverse.service.systemservice;
 
+import org.springframework.http.HttpMethod;
+
 /**
  * @author lihui
  * @since 2025/8/18 10:30
@@ -15,5 +17,5 @@ public interface WebClientService {
      * @param responseType  响应类型
      * @return <T> byte[]
      */
-    <T> byte[] fetch(String authorization, String url, String httpMethod, Object requestBody, Class<T> responseType);
+    <T> byte[] fetch(String authorization, String url, HttpMethod httpMethod, Object requestBody, Class<T> responseType);
 }

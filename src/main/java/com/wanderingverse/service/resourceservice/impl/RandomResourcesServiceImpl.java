@@ -5,6 +5,7 @@ import com.wanderingverse.service.resourceservice.RandomResourcesService;
 import com.wanderingverse.service.systemservice.WebClientService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     private byte[] readImage(String url) {
         byte[] imageBytes = minioConfig.downloadRandomFile();
         if (imageBytes == null) {
-            byte[] imageOfFetch = webClientService.fetch(null, url, "GET", null, byte[].class);
+            byte[] imageOfFetch = webClientService.fetch(null, url, HttpMethod.GET, null, byte[].class);
             if (imageOfFetch != null) {
                 minioConfig.uploadFile(System.currentTimeMillis() + ".jpg", imageOfFetch);
                 imageBytes = imageOfFetch;
