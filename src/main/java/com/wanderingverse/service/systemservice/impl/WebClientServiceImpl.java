@@ -47,7 +47,7 @@ public class WebClientServiceImpl implements WebClientService {
             httpRequestBuilder.method(httpMethod.name(), HttpRequest.BodyPublishers.noBody());
 
         } else if (httpMethod == POST || httpMethod == PUT) {
-            String json = null;
+            String json = "";
             try {
                 json = new ObjectMapper().writeValueAsString(requestBody);
             } catch (Exception ignore) {
