@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2025/8/15 16:14
  */
 @Slf4j
-@EnableLogRecord(tenant = "wanderingVerse")
 @SpringBootApplication
+@EnableLogRecord(tenant = "wanderingVerse")
 public class WanderingVerseApplication {
     public static void main(String[] args) {
         SpringApplication.run(WanderingVerseApplication.class, args);

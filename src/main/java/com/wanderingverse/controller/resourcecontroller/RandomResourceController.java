@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -30,8 +29,8 @@ public class RandomResourceController {
      * 获取随机图片
      */
     @GetMapping("/image")
-    public AjaxResult getRandomImage(@RequestParam(defaultValue = "260") String width, @RequestParam(defaultValue = "160") String height) {
-        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage(width, height);
+    public AjaxResult getRandomImage() {
+        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage();
         return AjaxResult.success(responseEntity);
     }
 }

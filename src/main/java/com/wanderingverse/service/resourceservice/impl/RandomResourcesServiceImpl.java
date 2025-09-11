@@ -28,8 +28,8 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     private MinioConfig minioConfig;
 
     @Override
-    public ResponseEntity<byte[]> getRandomImage(String width, String height) {
-        String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).pathSegment(width, height).build().toUriString();
+    public ResponseEntity<byte[]> getRandomImage() {
+        String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_0).build().toUriString();
         return buildResponseEntity(readImage(url), MediaType.IMAGE_JPEG);
     }
 

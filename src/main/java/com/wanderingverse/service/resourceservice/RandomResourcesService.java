@@ -13,9 +13,7 @@ public interface RandomResourcesService {
     /**
      * 获取随机图片
      *
-     * @param width  宽度
-     * @param height 高度
      * @return ResponseEntity < byte [ ]>
      */
-    ResponseEntity<byte[]> getRandomImage(String width, String height);
+    ResponseEntity<byte[]> getRandomImage();
 }
