@@ -37,10 +37,16 @@ public class MinioConfig {
     private String bucketName;
 
     private MinioClient minioClient;
+    private MinioAsyncClient minioAsyncClient;
 
     @PostConstruct
     private void initMinioClient() {
         minioClient = MinioClient.builder().endpoint(url).credentials(accessKey, secretKey).build();
+    }
+
+    @PostConstruct
+    private void initMinioAsyncClient() {
+        minioAsyncClient = MinioAsyncClient.builder().endpoint(url).credentials(accessKey, secretKey).build();
     }
 
     /**
@@ -54,10 +60,10 @@ public class MinioConfig {
             return false;
         }
         PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-                .bucket(bucketName)
-                .object(fileName)
-                .stream(new ByteArrayInputStream(bytes), bytes.length, -1)
-                .build();
+                                                   .bucket(bucketName)
+                                                   .object(fileName)
+                                                   .stream(new ByteArrayInputStream(bytes), bytes.length, -1)
+                                                   .build();
         try {
             minioClient.putObject(putObjectArgs);
         } catch (Exception e) {
@@ -70,6 +76,37 @@ public class MinioConfig {
 
 
     /**
+     * 异步上传文件到 minio
+     *
+     * @param fileName 文件名
+     * @param bytes    文件字节数组
+     */
+    public void uploadFileAsync(String fileName, byte[] bytes) {
+        if (!StringUtils.hasText(fileName) || bytes == null) {
+            return;
+        }
+        PutObjectArgs putObjectArgs = PutObjectArgs.builder()
+                                                   .bucket(bucketName)
+                                                   .object(fileName)
+                                                   .stream(new ByteArrayInputStream(bytes), bytes.length, -1)
+                                                   .build();
+        try {
+            minioAsyncClient.putObject(putObjectArgs)
+                            .thenApply(response -> {
+                                log.info("异步上传文件到 minio 成功：{}", fileName);
+                                return response;
+                            })
+                            .exceptionally(throwable -> {
+                                log.error("异步上传文件到 minio 失败：", throwable);
+                                return null;
+                            });
+        } catch (Exception e) {
+            log.error("异步上传文件到 minio 失败：", e);
+        }
+    }
+
+
+    /**
      * 从 minio 下载文件
      *
      * @param fileName 文件名
@@ -77,9 +114,9 @@ public class MinioConfig {
      */
     public byte[] downloadFile(String fileName) {
         GetObjectArgs getObjectArgs = GetObjectArgs.builder()
-                .bucket(bucketName)
-                .object(fileName)
-                .build();
+                                                   .bucket(bucketName)
+                                                   .object(fileName)
+                                                   .build();
         try (GetObjectResponse objectResponse = minioClient.getObject(getObjectArgs)) {
             return objectResponse.readAllBytes();
         } catch (Exception e) {
@@ -113,11 +150,11 @@ public class MinioConfig {
             expires = 60;
         }
         GetPresignedObjectUrlArgs getPresignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
-                .method(Method.GET)
-                .bucket(bucketName)
-                .object(fileName)
-                .expiry(expires, TimeUnit.SECONDS)
-                .build();
+                                                                                       .method(Method.GET)
+                                                                                       .bucket(bucketName)
+                                                                                       .object(fileName)
+                                                                                       .expiry(expires, TimeUnit.SECONDS)
+                                                                                       .build();
         try {
             return minioClient.getPresignedObjectUrl(getPresignedObjectUrlArgs);
         } catch (Exception e) {

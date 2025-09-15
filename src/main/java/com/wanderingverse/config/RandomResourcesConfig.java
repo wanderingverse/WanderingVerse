@@ -6,12 +6,6 @@ package com.wanderingverse.config;
  * @since 2025/08/16 17:11
  **/
 public class RandomResourcesConfig {
-
-    /**
-     * 随机图片 url
-     */
-    public static final String RANDOM_IMAGE_URL_0 = "https://picsum.photos";
-
     /**
      * 随机图片 url
      */

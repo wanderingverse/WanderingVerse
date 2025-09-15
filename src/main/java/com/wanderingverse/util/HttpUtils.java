@@ -22,6 +22,9 @@ public class HttpUtils {
      * 封装响应体
      */
     public static ResponseEntity<byte[]> buildResponseEntity(byte[] body, MediaType mediaType) {
+        if (body == null) {
+            return ResponseEntity.noContent().build();
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(mediaType);
         headers.setContentLength(body.length);
