@@ -18,9 +18,9 @@ import java.util.List;
  * @author WanderingVerse
  * @since 2025/08/17 13:24
  **/
+@Slf4j
 @RestController
 @RequestMapping("/living-state")
-@Slf4j
 public class LivingStateController {
     @Resource
     private LivingStateService livingStateService;

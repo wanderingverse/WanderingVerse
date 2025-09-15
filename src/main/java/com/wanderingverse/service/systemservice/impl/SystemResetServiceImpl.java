@@ -2,6 +2,7 @@ package com.wanderingverse.service.systemservice.impl;
 
 import com.wanderingverse.mapper.blogmapper.BlogPostContentMapper;
 import com.wanderingverse.mapper.blogmapper.BlogPostMapper;
+import com.wanderingverse.mapper.individualmapper.DailyLifeMapper;
 import com.wanderingverse.mapper.individualmapper.LivingStateMapper;
 import com.wanderingverse.mapper.systemmapper.UserMapper;
 import com.wanderingverse.service.systemservice.SystemResetService;
@@ -23,6 +24,8 @@ public class SystemResetServiceImpl implements SystemResetService {
     private LivingStateMapper livingStateMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private DailyLifeMapper dailyLifeMapper;
 
     @Override
     public boolean resetDatabase() {
@@ -30,6 +33,7 @@ public class SystemResetServiceImpl implements SystemResetService {
         blogPostMapper.truncate();
         livingStateMapper.truncate();
         blogPostContentMapper.truncate();
+        dailyLifeMapper.truncate();
         return true;
     }
 }

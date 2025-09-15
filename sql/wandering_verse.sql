@@ -76,14 +76,16 @@ CREATE TABLE permission
 drop table if exists blog_post;
 CREATE TABLE blog_post
 (
-    id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章表主键 id',
-    title         TEXT COMMENT '文章标题',
-    summary       TEXT COMMENT '文章摘要',
-    author_id     BIGINT UNSIGNED COMMENT '作者 id',
-    content_id    BIGINT UNSIGNED COMMENT '正文 id',
-    delete_status TINYINT COMMENT '删除状态',
-    create_time   DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+    id                BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章表主键 id',
+    title             TEXT COMMENT '文章标题',
+    summary           TEXT COMMENT '文章摘要',
+    author_id         BIGINT UNSIGNED COMMENT '作者 id',
+    content_id        BIGINT UNSIGNED COMMENT '正文 id',
+    toponym_id        BIGINT UNSIGNED COMMENT '写作地点 id',
+    cover_picture_url VARCHAR(256) COMMENT '封面图片 url',
+    delete_status     TINYINT COMMENT '删除状态',
+    create_time       DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='博客文章表';
 
 drop table if exists blog_post_content;
@@ -106,7 +108,7 @@ CREATE TABLE daily_life
     remark             varchar(1024) COMMENT '备注',
     create_time        datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time        datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) COMMENT ='日常生活表 daily_life';
+) COMMENT ='日常生活表';
 
 drop table if exists living_state;
 CREATE TABLE living_state
@@ -117,7 +119,15 @@ CREATE TABLE living_state
     parent_id         bigint unsigned COMMENT '父节点 id',
     create_time       datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time       datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) COMMENT ='生活状态表 living_state';
+) COMMENT ='生活状态表';
+
+drop table if exists toponym;
+CREATE TABLE toponym
+(
+    id        BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '地名表主键 id',
+    parent_id BIGINT UNSIGNED COMMENT '父级地理位置 id',
+    name      VARCHAR(256) COMMENT '地名'
+) COMMENT ='地名表';
 
 
 drop table if exists sys_operation_log;

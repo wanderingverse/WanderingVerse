@@ -65,4 +65,9 @@ public class LivingStateServiceImpl implements LivingStateService {
         }
         return treeNodeList;
     }
+
+    @Override
+    public LivingStateDO getLivingStateDetail(Long id) {
+        return livingStateMapper.selectById(id);
+    }
 }

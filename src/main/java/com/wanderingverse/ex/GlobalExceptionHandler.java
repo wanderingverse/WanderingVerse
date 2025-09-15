@@ -32,6 +32,17 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(UNPROCESSABLE_ENTITY.value(), message);
     }
 
+
+    /**
+     * 自定义业务异常
+     *
+     * @param e ServiceException
+     */
+    @ExceptionHandler(ServiceException.class)
+    public AjaxResult handleServiceException(ServiceException e) {
+        return AjaxResult.error(e.getCode(), e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public AjaxResult handleException(Exception e) {
         log.error("服务器异常：", e);

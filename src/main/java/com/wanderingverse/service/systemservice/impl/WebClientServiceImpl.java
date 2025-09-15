@@ -2,6 +2,7 @@ package com.wanderingverse.service.systemservice.impl;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wanderingverse.ex.ServiceException;
 import com.wanderingverse.service.systemservice.WebClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -63,7 +64,8 @@ public class WebClientServiceImpl implements WebClientService {
             HttpResponse<byte[]> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofByteArray());
             return httpResponse.body();
         } catch (Exception e) {
-            throw new RuntimeException("HTTP 请求失败：", e);
+            log.error("HTTP 请求失败：", e);
+            throw new ServiceException("HTTP 请求失败");
         }
     }
 }

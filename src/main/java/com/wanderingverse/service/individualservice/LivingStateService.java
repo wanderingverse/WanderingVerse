@@ -29,4 +29,13 @@ public interface LivingStateService {
      * @return List<TreeNode < LivingStateDO>>
      */
     List<TreeNode<LivingStateDO>> getLivingStateList(String id, Integer mode);
+
+
+    /**
+     * 获取生活状态详情
+     *
+     * @param id LivingStateDO.id
+     * @return LivingStateDO
+     */
+    LivingStateDO getLivingStateDetail(Long id);
 }

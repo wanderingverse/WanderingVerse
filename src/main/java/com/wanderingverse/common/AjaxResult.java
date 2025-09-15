@@ -125,7 +125,7 @@ public class AjaxResult extends HashMap<String, Object> {
     }
 
     /**
-     * 返回错误消息
+     * 返回异常消息
      *
      * @param code 状态码
      * @param msg  返回内容

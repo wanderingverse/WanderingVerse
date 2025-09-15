@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Update;
 
 /**
  * @author lihui
- * @date 2025/05/09 15:37
+ * @since 2025/05/09 15:37
  */
 @Mapper
 public interface UserMapper extends MPJBaseMapper<UserDO> {
