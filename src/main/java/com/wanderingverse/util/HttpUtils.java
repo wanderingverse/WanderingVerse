@@ -61,7 +61,8 @@ public class HttpUtils {
         if (ObjectUtils.isEmpty(httpServletRequest)) {
             return null;
         }
-        return httpServletRequest.getRemoteAddr();
+        String remoteAddr = httpServletRequest.getRemoteAddr();
+        return isValidIpv4(remoteAddr) ? remoteAddr : null;
     }
 
     /**

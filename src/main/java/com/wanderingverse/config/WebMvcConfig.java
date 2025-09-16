@@ -23,7 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 注册自定义拦截器
         registry.addInterceptor(globalInterceptor)
                 // 拦截的请求
                 .addPathPatterns("/**")

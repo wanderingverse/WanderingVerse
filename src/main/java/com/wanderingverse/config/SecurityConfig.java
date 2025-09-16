@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
+ * Spring Security
+ *
  * @author lihui
  * @since 2025/9/11 12:24
  **/
