@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
  * 系统登录 Controller
  *
  * @author lihui
- * @date 2025/5/7 22:10
+ * @since 2025/5/7 22:10
  **/
+@Slf4j
 @RestController
 @RequestMapping("/system/login")
-@Slf4j
 public class SystemLoginController {
     @Resource
     private SystemLoginService systemLoginService;
