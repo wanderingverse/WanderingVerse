@@ -1,5 +1,6 @@
 package com.wanderingverse.service.individualservice.impl;
 
+import com.wanderingverse.ex.UnprocessableEntityException;
 import com.wanderingverse.mapper.individualmapper.DailyLifeMapper;
 import com.wanderingverse.model.entity.DailyLifeDO;
 import com.wanderingverse.model.entity.LivingStateDO;
@@ -31,7 +32,7 @@ public class DailyLifeServiceImpl implements DailyLifeService {
     public boolean addDailyLife(DailyLifeDO dailyLife) {
         LivingStateDO livingState = livingStateService.getLivingStateDetail(dailyLife.getLivingStateId());
         if (ObjectUtils.isEmpty(livingState)) {
-            // 抛异常
+            throw new UnprocessableEntityException("生活状态不存在");
         }
         LocalDateTime currentTime = LocalDateTime.now();
         BigDecimal defaultAmount = BigDecimal.ZERO;

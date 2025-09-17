@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
- * Service 自定义异常
+ * Service 后端业务异常
  *
  * @author lihui
  * @since 2025/03/27 10:01

@@ -24,6 +24,10 @@ public class UploadResourceController {
     @Resource
     private UploadResourceService uploadResourceService;
 
+
+    /**
+     * 上传图片文件
+     */
     @PostMapping("/image")
     public AjaxResult uploadImage(@RequestParam MultipartFile file) {
         String filePath = uploadResourceService.uploadImage(file);

@@ -32,9 +32,17 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(UNPROCESSABLE_ENTITY.value(), message);
     }
 
+    /**
+     * 前端业务校验异常
+     */
+    @ExceptionHandler(UnprocessableEntityException.class)
+    public AjaxResult handleUnprocessableEntityException(UnprocessableEntityException e) {
+        return AjaxResult.error(e.getCode(), e.getMessage());
+    }
+
 
     /**
-     * 自定义业务异常
+     * 后端业务异常
      *
      * @param e ServiceException
      */
@@ -43,6 +51,12 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(e.getCode(), e.getMessage());
     }
 
+
+    /**
+     * 默认全局异常
+     *
+     * @param e Exception
+     */
     @ExceptionHandler(Exception.class)
     public AjaxResult handleException(Exception e) {
         log.error("服务器异常：", e);
