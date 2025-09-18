@@ -34,6 +34,11 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
 //        return buildResponseEntity(readImage(url), MediaType.IMAGE_JPEG);
     }
 
+    @Override
+    public String getRandomText() {
+        return "胡适之啊胡适之！你怎么能如此堕落！先前订下的学习计划你都忘了吗？";
+    }
+
 
     private byte[] readImage() {
         return minioConfig.downloadRandomFile();

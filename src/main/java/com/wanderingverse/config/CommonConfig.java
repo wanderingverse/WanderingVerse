@@ -31,4 +31,14 @@ public class CommonConfig {
      * 超时重试间隔（ms）
      */
     public static final int RETRY_DELAY_MILLIS = 1000;
+
+    /**
+     * 用户相关文件保存相对路径
+     */
+    public static final String USER_FILE_DIRECTORY = "user";
+
+    /**
+     * 图片存储目录
+     */
+    public static final String IMAGE_DIRECTORY = "image";
 }

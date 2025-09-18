@@ -16,4 +16,11 @@ public interface RandomResourcesService {
      * @return ResponseEntity < byte [ ]>
      */
     ResponseEntity<byte[]> getRandomImage();
+
+    /**
+     * 获取随机文字
+     *
+     * @return String
+     */
+    String getRandomText();
 }

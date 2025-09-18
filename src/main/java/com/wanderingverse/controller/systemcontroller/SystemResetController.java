@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  * 系统重置 Controller
  *
  * @author lihui
- * @date 2025/05/09 15:16
+ * @since 2025/05/09 15:16
  **/
+@Slf4j
 @RestController
 @RequestMapping("/system/reset")
-@Slf4j
 public class SystemResetController {
     @Resource
     private SystemResetService systemResetService;

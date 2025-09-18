@@ -33,4 +33,13 @@ public class RandomResourceController {
         ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage();
         return AjaxResult.success(responseEntity);
     }
+
+    /**
+     * 获取随机一段文字
+     */
+    @GetMapping("/text")
+    public AjaxResult getRandomText() {
+        String randomText = randomResourcesService.getRandomText();
+        return AjaxResult.success(randomText);
+    }
 }

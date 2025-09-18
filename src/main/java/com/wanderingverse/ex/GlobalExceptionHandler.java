@@ -6,6 +6,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.List;
 
@@ -33,6 +34,15 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 文件上传大小超限异常
+     */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public AjaxResult handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        log.info("上传文件大小超出限制：", e);
+        return AjaxResult.error(UNPROCESSABLE_ENTITY.value(), "上传文件大小超出限制");
+    }
+
+    /**
      * 前端业务校验异常
      */
     @ExceptionHandler(UnprocessableEntityException.class)
@@ -53,13 +63,13 @@ public class GlobalExceptionHandler {
 
 
     /**
-     * 默认全局异常
+     * 默认异常
      *
      * @param e Exception
      */
     @ExceptionHandler(Exception.class)
     public AjaxResult handleException(Exception e) {
         log.error("服务器异常：", e);
-        return AjaxResult.error("服务器异常");
+        return AjaxResult.error("服务器异常：{}", e.getMessage());
     }
 }

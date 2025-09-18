@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +12,10 @@ import java.time.LocalDateTime;
  * 用户表
  *
  * @author lihui
- * @date 2025/05/09 15:24
+ * @since 2025/05/09 15:24
  */
 @Data
+@Accessors(chain = true)
 @TableName("user")
 public class UserDO {
 
