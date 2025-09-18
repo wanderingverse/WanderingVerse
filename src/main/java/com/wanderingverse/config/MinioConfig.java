@@ -137,7 +137,6 @@ public class MinioConfig {
         }
         int randInt = ThreadLocalRandom.current().nextInt(0, fileNameList.size());
         String fileName = fileNameList.get(randInt);
-        log.info("随机获取文件：{}", fileName);
         return downloadFile(fileName);
     }
 
