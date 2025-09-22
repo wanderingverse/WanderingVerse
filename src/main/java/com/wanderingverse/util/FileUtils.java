@@ -1,8 +1,10 @@
 package com.wanderingverse.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +13,7 @@ import java.util.UUID;
  * @author WanderingVerse
  * @since 2025/08/24 14:41
  */
+@Slf4j
 public class FileUtils {
 
     /**
@@ -52,5 +55,25 @@ public class FileUtils {
     public static String generateUniqueFileName(MultipartFile file) {
         String ext = getFileExtension(file.getContentType());
         return UUID.randomUUID() + ext;
+    }
+
+    /**
+     * 获取文件 hash
+     */
+    public static String getFileMd5(byte[] bytes) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            log.error("获取文件 hash 失败", e);
+            return null;
+        }
+        md.update(bytes);
+        byte[] digest = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }

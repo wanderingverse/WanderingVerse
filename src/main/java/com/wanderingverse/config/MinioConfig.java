@@ -1,5 +1,6 @@
 package com.wanderingverse.config;
 
+import com.wanderingverse.util.FileUtils;
 import io.minio.*;
 import io.minio.http.Method;
 import io.minio.messages.Item;
@@ -85,6 +86,15 @@ public class MinioConfig {
         if (!StringUtils.hasText(fileName) || bytes == null) {
             return;
         }
+        // 计算文件 Hash，文件若存在，跳过上传
+        String fileHash = FileUtils.getFileMd5(bytes);
+        List<Item> fileList = getAllFileList(null);
+        for (Item item : fileList) {
+            if (item.etag().equals(fileHash)) {
+                log.info("文件已存在。fileName = {}，md5 = {}", fileName, fileHash);
+                return;
+            }
+        }
         PutObjectArgs putObjectArgs = PutObjectArgs.builder()
                                                    .bucket(bucketName)
                                                    .object(fileName)
@@ -131,13 +141,13 @@ public class MinioConfig {
      * @return 文件字节数组
      */
     public byte[] downloadRandomFile(String prefix) {
-        List<String> fileNameList = getAllFileNameList(prefix);
-        if (fileNameList.isEmpty()) {
+        List<Item> fileList = getAllFileList(prefix);
+        if (ObjectUtils.isEmpty(fileList)) {
             return null;
         }
-        int randInt = ThreadLocalRandom.current().nextInt(0, fileNameList.size());
-        String fileName = fileNameList.get(randInt);
-        return downloadFile(fileName);
+        int randInt = ThreadLocalRandom.current().nextInt(0, fileList.size());
+        Item item = fileList.get(randInt);
+        return downloadFile(item.objectName());
     }
 
 
@@ -169,16 +179,29 @@ public class MinioConfig {
         }
     }
 
+    /**
+     * 获取指定文件的详细信息
+     */
+    public StatObjectResponse getFileInfo(String fileName) {
+        StatObjectResponse statObjectResponse = null;
+        StatObjectArgs statObjectArgs = StatObjectArgs.builder().bucket(bucketName).object(fileName).build();
+        try {
+            statObjectResponse = minioClient.statObject(statObjectArgs);
+        } catch (Exception e) {
+            log.error("获取文件信息失败：", e);
+        }
+        return statObjectResponse;
+    }
 
     /**
      * 获取 bucket 中指定前缀的所有文件列表
      *
-     * @return 文件名列表
+     * @return 文件列表
      */
-    public List<String> getAllFileNameList(String prefix) {
+    public List<Item> getAllFileList(String prefix) {
         ListObjectsArgs listObjectsArgs = ListObjectsArgs.builder().bucket(bucketName).prefix(prefix).build();
         Iterable<Result<Item>> listObjects = minioClient.listObjects(listObjectsArgs);
-        List<String> fileNameList = new ArrayList<>();
+        List<Item> fileList = new ArrayList<>();
         for (Result<Item> itemResult : listObjects) {
             Item item = null;
             try {
@@ -187,10 +210,10 @@ public class MinioConfig {
                 log.error("获取文件列表失败：", e);
             }
             if (!ObjectUtils.isEmpty(item)) {
-                fileNameList.add(item.objectName());
+                fileList.add(item);
             }
         }
-        return fileNameList;
+        return fileList;
     }
 
     /**
