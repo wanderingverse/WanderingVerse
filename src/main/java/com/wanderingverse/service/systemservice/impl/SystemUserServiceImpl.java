@@ -32,8 +32,13 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public UserResponseDTO getCurrentSystemUser() {
+        return getUserById(1L);
+    }
+
+    @Override
+    public UserResponseDTO getUserById(Long userId) {
         MPJLambdaWrapper<UserDO> userLambdaQueryWrapper = new MPJLambdaWrapper<UserDO>()
-                .eq(UserDO::getId, 1);
+                .eq(UserDO::getId, userId);
         UserResponseDTO user = userMapper.selectJoinOne(UserResponseDTO.class, userLambdaQueryWrapper);
         if (ObjectUtils.isEmpty(user)) {
             throw new ServiceException("用户信息获取失败");
@@ -52,10 +57,13 @@ public class SystemUserServiceImpl implements SystemUserService {
         if (!result) {
             throw new ServiceException("用户头像上传失败");
         }
-        // 更新用户头像信息
+        // 删除原头像
+        UserResponseDTO userForDelete = getUserById(userId);
+        boolean deleted = minioConfig.deleteFile(userForDelete.getAvatar());
+        // 更新用户头像
         UserDO user = new UserDO().setId(userId).setAvatar(fileName);
         boolean updateUserInfoResult = updateUserInfo(user);
-        return true;
+        return updateUserInfoResult && deleted;
     }
 
     @Override

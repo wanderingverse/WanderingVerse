@@ -32,8 +32,14 @@ public class CommonConfig {
      */
     public static final int RETRY_DELAY_MILLIS = 1000;
 
+
     /**
-     * 用户相关文件保存相对路径
+     * 首页背景大图保存目录
+     */
+    public static final String BACKGROUND_IMAGE_DIRECTORY = "background";
+
+    /**
+     * 用户相关文件保存目录
      */
     public static final String USER_FILE_DIRECTORY = "user";
 

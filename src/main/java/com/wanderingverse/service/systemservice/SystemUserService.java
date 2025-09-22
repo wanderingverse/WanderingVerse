@@ -15,9 +15,18 @@ public interface SystemUserService {
     /**
      * 获取当前系统用户信息
      *
-     * @return User
+     * @return UserResponseDTO
      */
     UserResponseDTO getCurrentSystemUser();
+
+
+    /**
+     * 根据用户 id 获取用户信息
+     *
+     * @param userId 用户 id
+     * @return UserResponseDTO
+     */
+    UserResponseDTO getUserById(Long userId);
 
     /**
      * 更新用户头像

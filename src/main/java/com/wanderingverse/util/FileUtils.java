@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author WanderingVerse
@@ -50,6 +51,6 @@ public class FileUtils {
      */
     public static String generateUniqueFileName(MultipartFile file) {
         String ext = getFileExtension(file.getContentType());
-        return java.util.UUID.randomUUID() + ext;
+        return UUID.randomUUID() + ext;
     }
 }

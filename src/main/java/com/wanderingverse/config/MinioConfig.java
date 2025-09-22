@@ -130,8 +130,8 @@ public class MinioConfig {
      *
      * @return 文件字节数组
      */
-    public byte[] downloadRandomFile() {
-        List<String> fileNameList = getAllFileNameList();
+    public byte[] downloadRandomFile(String prefix) {
+        List<String> fileNameList = getAllFileNameList(prefix);
         if (fileNameList.isEmpty()) {
             return null;
         }
@@ -141,6 +141,13 @@ public class MinioConfig {
     }
 
 
+    /**
+     * 获取文件预签名访问 url
+     *
+     * @param fileName 文件名
+     * @param expires  过期时间
+     * @return 访问 url
+     */
     public String getPreSignedUrl(String fileName, Integer expires) {
         if (!StringUtils.hasText(fileName)) {
             return null;
@@ -164,12 +171,12 @@ public class MinioConfig {
 
 
     /**
-     * 获取 bucket 中所有文件
+     * 获取 bucket 中指定前缀的所有文件列表
      *
      * @return 文件名列表
      */
-    public List<String> getAllFileNameList() {
-        ListObjectsArgs listObjectsArgs = ListObjectsArgs.builder().bucket(bucketName).build();
+    public List<String> getAllFileNameList(String prefix) {
+        ListObjectsArgs listObjectsArgs = ListObjectsArgs.builder().bucket(bucketName).prefix(prefix).build();
         Iterable<Result<Item>> listObjects = minioClient.listObjects(listObjectsArgs);
         List<String> fileNameList = new ArrayList<>();
         for (Result<Item> itemResult : listObjects) {
@@ -184,5 +191,33 @@ public class MinioConfig {
             }
         }
         return fileNameList;
+    }
+
+    /**
+     * 删除文件
+     */
+    public boolean deleteFile(String fileName) {
+        if (!StringUtils.hasText(fileName)) {
+            return false;
+        }
+        RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder().bucket(bucketName).object(fileName).build();
+        try {
+            minioClient.removeObject(removeObjectArgs);
+        } catch (Exception e) {
+            log.error("删除文件失败：", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 移动文件
+     *
+     * @param sourceFile 源文件
+     * @param targetFile 目标文件
+     * @return boolean
+     */
+    public boolean moveFile(String sourceFile, String targetFile) {
+        throw new UnsupportedOperationException();
     }
 }

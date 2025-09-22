@@ -31,6 +31,6 @@ public class UploadResourceController {
     @PostMapping("/image")
     public AjaxResult uploadImage(@RequestParam MultipartFile file) {
         String filePath = uploadResourceService.uploadImage(file);
-        return !StringUtils.hasText(filePath) ? AjaxResult.error("图片上传失败") : AjaxResult.success("上传成功", filePath);
+        return !StringUtils.hasText(filePath) ? AjaxResult.error("图片上传失败") : AjaxResult.success(filePath);
     }
 }

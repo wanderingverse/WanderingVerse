@@ -11,6 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
+import java.util.UUID;
+
+import static com.wanderingverse.config.CommonConfig.BACKGROUND_IMAGE_DIRECTORY;
+import static com.wanderingverse.config.CommonConfig.IMAGE_DIRECTORY;
 import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_1;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
 
@@ -30,8 +35,9 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     @Override
     public ResponseEntity<byte[]> getRandomImage() {
         String url = UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_1).build().toUriString();
-        return buildResponseEntity(readImage(), MediaType.IMAGE_JPEG);
-//        return buildResponseEntity(readImage(url), MediaType.IMAGE_JPEG);
+        String prefix = BACKGROUND_IMAGE_DIRECTORY + File.separator + IMAGE_DIRECTORY;
+//        return buildResponseEntity(readImage(prefix), MediaType.IMAGE_JPEG);
+        return buildResponseEntity(readAndUpdateImage(url, prefix), MediaType.IMAGE_JPEG);
     }
 
     @Override
@@ -40,15 +46,16 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     }
 
 
-    private byte[] readImage() {
-        return minioConfig.downloadRandomFile();
+    private byte[] readImage(String prefix) {
+        return minioConfig.downloadRandomFile(prefix);
     }
 
-    private byte[] readImage(String url) {
-        byte[] imageBytes = minioConfig.downloadRandomFile();
+    private byte[] readAndUpdateImage(String url, String prefix) {
+        byte[] imageBytes = readImage(prefix);
         byte[] imageOfFetch = webClientService.fetch(null, url, HttpMethod.GET, null, byte[].class);
         if (imageOfFetch != null) {
-            minioConfig.uploadFileAsync(System.currentTimeMillis() + ".jpg", imageOfFetch);
+            String fileName = prefix + File.separator + UUID.randomUUID() + ".jpg";
+            minioConfig.uploadFileAsync(fileName, imageOfFetch);
         }
         if (imageBytes == null && imageOfFetch != null) {
             imageBytes = imageOfFetch;
