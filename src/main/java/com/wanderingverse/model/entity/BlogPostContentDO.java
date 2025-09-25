@@ -9,7 +9,7 @@ import lombok.Data;
  * 博客文章内容表
  *
  * @author lihui
- * @date 2025/05/14 12:38
+ * @since 2025/05/14 12:38
  */
 @Data
 @TableName("blog_post_content")

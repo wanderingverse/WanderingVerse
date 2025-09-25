@@ -1,3 +1,4 @@
+# \src\main\resources\application.yaml
 server:
   port: 3721
   ssl:
@@ -16,12 +17,14 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active:
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wandering_verse
     username: root
     password: 123456
+  elasticsearch:
+    uris: http://39.106.10.8:9200
 
 minio:
   url: http://39.106.10.8:9000
