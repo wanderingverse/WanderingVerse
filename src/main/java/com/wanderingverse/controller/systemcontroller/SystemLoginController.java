@@ -37,7 +37,7 @@ public class SystemLoginController {
     @PostMapping("")
     public AjaxResult login(@RequestBody UserDO user) {
         String token = systemLoginService.login(user);
-        return AjaxResult.success("登录成功");
+        return AjaxResult.success();
 //        throw new IllegalArgumentException("测试异常");
     }
 }
