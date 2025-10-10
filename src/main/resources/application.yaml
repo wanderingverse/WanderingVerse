@@ -1,4 +1,3 @@
-# \src\main\resources\application.yaml
 server:
   port: 3721
   ssl:
@@ -31,9 +30,3 @@ minio:
   access-key: minio_root_user
   secret-key: minio_root_password
   bucket-name: bucket-default
-
-
-logging:
-  level:
-    root: info
-    com.wanderingverse: info

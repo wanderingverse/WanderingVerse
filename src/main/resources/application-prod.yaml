@@ -4,8 +4,3 @@ spring:
     url: jdbc:mysql://39.106.10.8:3306/wandering_verse
     username: root
     password: 123456
-
-logging:
-  level:
-    root: info
-    com.wanderingverse: info
