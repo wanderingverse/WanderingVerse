@@ -9,7 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Algorithm {
     public static void main(String[] args) {
-        System.out.println(new Algorithm().sumRangeRecursive(1, 10000));
+        System.out.println(Thread.currentThread().getName());
+        // 输出当前线程名：main
     }
 
 
