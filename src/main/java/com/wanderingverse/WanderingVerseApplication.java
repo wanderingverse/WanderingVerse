@@ -4,6 +4,7 @@ import com.mzt.logapi.starter.annotation.EnableLogRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2025/8/15 16:14
  */
 @Slf4j
+@EnableAsync
 @SpringBootApplication
 @EnableLogRecord(tenant = "wanderingVerse")
 public class WanderingVerseApplication {

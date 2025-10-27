@@ -1,9 +1,9 @@
 package com.wanderingverse.controller.systemcontroller;
 
 import com.mzt.logapi.starter.annotation.LogRecord;
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.model.entity.UserDO;
 import com.wanderingverse.service.systemservice.SystemLoginService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

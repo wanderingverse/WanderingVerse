@@ -1,7 +1,8 @@
 package com.wanderingverse.controller.resourcecontroller;
 
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.service.resourceservice.DownloadResourceService;
+import com.wanderingverse.service.resourceservice.RandomResourcesService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 资源获取
+ *
  * @author WanderingVerse
  * @since 2025/08/24 16:12
  */
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DownloadResourceController {
     @Resource
     private DownloadResourceService downloadResourceService;
+    @Resource
+    private RandomResourcesService randomResourcesService;
 
 
     /**
@@ -39,5 +44,23 @@ public class DownloadResourceController {
     public AjaxResult getImagePreSignedUrl(@PathVariable String filename) {
         String preSignedUrl = downloadResourceService.getImagePreSignedUrl(filename);
         return StringUtils.hasText(preSignedUrl) ? AjaxResult.success(preSignedUrl) : AjaxResult.error("文件不存在");
+    }
+
+    /**
+     * 获取随机图片
+     */
+    @GetMapping("/random/image")
+    public AjaxResult getRandomImage() {
+        ResponseEntity<byte[]> responseEntity = randomResourcesService.getRandomImage();
+        return AjaxResult.success(responseEntity);
+    }
+
+    /**
+     * 获取随机一段文字
+     */
+    @GetMapping("/random/text")
+    public AjaxResult getRandomText() {
+        String randomText = randomResourcesService.getRandomText();
+        return AjaxResult.success(randomText);
     }
 }

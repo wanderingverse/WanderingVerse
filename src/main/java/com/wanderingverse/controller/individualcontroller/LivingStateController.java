@@ -1,9 +1,9 @@
 package com.wanderingverse.controller.individualcontroller;
 
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.model.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 import com.wanderingverse.service.individualservice.LivingStateService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

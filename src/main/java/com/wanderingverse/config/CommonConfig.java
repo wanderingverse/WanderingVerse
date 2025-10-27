@@ -32,9 +32,8 @@ public class CommonConfig {
      */
     public static final int RETRY_DELAY_MILLIS = 1000;
 
-
     /**
-     * 首页背景大图保存目录
+     * 首页背景图保存目录
      */
     public static final String BACKGROUND_IMAGE_DIRECTORY = "background";
 

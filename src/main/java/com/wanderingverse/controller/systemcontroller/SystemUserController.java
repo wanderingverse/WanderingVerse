@@ -1,8 +1,8 @@
 package com.wanderingverse.controller.systemcontroller;
 
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.model.dto.response.UserResponseDTO;
 import com.wanderingverse.service.systemservice.SystemUserService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;

@@ -15,7 +15,7 @@ public interface WebClientService {
      * @param httpMethod    请求方式
      * @param requestBody   请求体
      * @param responseType  响应类型
-     * @return <T> byte[]
+     * @return T
      */
-    <T> byte[] fetch(String authorization, String url, HttpMethod httpMethod, Object requestBody, Class<T> responseType);
+    <T> T fetch(String authorization, String url, HttpMethod httpMethod, Object requestBody, Class<T> responseType);
 }

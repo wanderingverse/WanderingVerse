@@ -1,6 +1,6 @@
 package com.wanderingverse.ex;
 
-import com.wanderingverse.common.AjaxResult;
+import com.wanderingverse.util.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

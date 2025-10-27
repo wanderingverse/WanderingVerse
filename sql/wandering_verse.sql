@@ -129,6 +129,19 @@ CREATE TABLE toponym
     name      VARCHAR(256) COMMENT '地名'
 ) COMMENT ='地名表';
 
+drop table if exists poetry;
+CREATE TABLE poetry
+(
+    id          bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '诗词表主键 id',
+    title       varchar(64) NOT NULL COMMENT '诗词名',
+    author      varchar(16) NOT NULL COMMENT '诗词作者',
+    content     text        NOT NULL COMMENT '诗词正文',
+    category    text        NOT NULL COMMENT '诗词标签',
+    sha_256     char(64)    NOT NULL UNIQUE COMMENT 'SHA-256',
+    create_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='诗词表';
+
 
 drop table if exists sys_operation_log;
 CREATE TABLE sys_operation_log

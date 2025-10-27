@@ -1,4 +1,4 @@
-package com.wanderingverse.common;
+package com.wanderingverse.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;

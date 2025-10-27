@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 登录状态 HashMap
+ * 登录状态管理器
  *
  * @author WanderingVerse
  * @since 2025/09/29 20:38
  */
 @Component
-public class CurrentLoginStatusVariableManager {
+public class CurrentLoginStatusManager {
 
 
     /**

@@ -1,7 +1,7 @@
 package com.wanderingverse.controller.resourcecontroller;
 
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.service.resourceservice.UploadResourceService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;

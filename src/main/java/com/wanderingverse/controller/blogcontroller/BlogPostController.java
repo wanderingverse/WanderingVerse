@@ -1,10 +1,10 @@
 package com.wanderingverse.controller.blogcontroller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.wanderingverse.common.AjaxResult;
 import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.model.dto.response.BlogPostResponseDTO;
 import com.wanderingverse.service.blogservice.BlogPostService;
+import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

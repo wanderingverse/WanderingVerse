@@ -28,7 +28,7 @@ import static org.springframework.http.HttpMethod.*;
 @Service
 public class WebClientServiceImpl implements WebClientService {
     @Override
-    public <T> byte[] fetch(String authorization, String url, HttpMethod httpMethod, Object requestBody, Class<T> responseType) {
+    public <T> T fetch(String authorization, String url, HttpMethod httpMethod, Object requestBody, Class<T> responseType) {
         httpMethod = ObjectUtils.isEmpty(httpMethod) ? GET : httpMethod;
         HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
                                                          // TCP 连接超时时间
@@ -61,7 +61,11 @@ public class WebClientServiceImpl implements WebClientService {
         log.debug("响应类型: {}", responseType);
         try (HttpClient httpClient = httpClientBuilder.build()) {
             HttpResponse<byte[]> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofByteArray());
-            return httpResponse.body();
+            if (responseType == byte[].class) {
+                return (T) httpResponse.body();
+            } else {
+                return new ObjectMapper().readValue(httpResponse.body(), responseType);
+            }
         } catch (Exception e) {
             log.error("HTTP 请求失败：", e);
             return null;

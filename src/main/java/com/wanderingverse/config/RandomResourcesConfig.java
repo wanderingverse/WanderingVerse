@@ -14,5 +14,5 @@ public class RandomResourcesConfig {
     /**
      * 随机文本 url
      */
-    public static final String RANDOM_TEXT_URL = "";
+    public static final String RANDOM_TEXT_URL = "https://v1.jinrishici.com/all.json";
 }
