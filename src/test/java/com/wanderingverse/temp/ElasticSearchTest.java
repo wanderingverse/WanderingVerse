@@ -1,4 +1,4 @@
-package com.wanderingverse;
+package com.wanderingverse.temp;
 
 
 import com.wanderingverse.config.ElasticSearchConfig;

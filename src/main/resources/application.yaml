@@ -16,14 +16,30 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active:
+    active: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wandering_verse
+    url: jdbc:mysql://localhost:3307/wandering_verse
     username: root
     password: 123456
   elasticsearch:
     uris: http://39.106.10.8:9200
+  kafka:
+    bootstrap-servers: 192.168.105.87:9092
+    topic:
+      #      name: pf_warn
+      name: pf_monitor
+    consumer:
+      group-id: test01
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        # 关闭幂等性
+        enable.idempotence: false
 
 minio:
   url: http://39.106.10.8:9000
