@@ -23,7 +23,7 @@ public class AiConfig {
     /**
      * apiKey
      */
-    @Value("sk-a08873fc46fe459cbeb8bc8bcd0ab9e3")
+    @Value("${AI_API_KEY}")
     private String apiKey;
 
     /**
