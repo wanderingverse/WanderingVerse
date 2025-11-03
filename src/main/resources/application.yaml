@@ -42,3 +42,15 @@ minio:
   access-key: minio_root_user
   secret-key: minio_root_password
   bucket-name: bucket-default
+
+langchain4j:
+  open-ai:
+    chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      # 写入环境变量
+      api-key: ${AI_API_KEY}
+      model-name: qwen-plus
+      # 输出请求日志
+      log-requests: true
+      # 输出响应日志
+      log-responses: true

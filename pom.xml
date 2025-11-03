@@ -23,6 +23,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- SpringBoot Reactive -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
         <!-- SpringBoot Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -115,9 +121,22 @@
         <!-- LangChain4J -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-open-ai</artifactId>
-            <version>1.8.0</version>
+            <artifactId>langchain4j-spring-boot-starter</artifactId>
+            <version>1.8.0-beta15</version>
         </dependency>
+        <!-- LangChain4J OpenAI -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
+            <version>1.8.0-beta15</version>
+        </dependency>
+        <!-- LangChain4J Reactor -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-reactor</artifactId>
+            <version>1.8.0-beta15</version>
+        </dependency>
+
 
     </dependencies>
 

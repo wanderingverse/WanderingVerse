@@ -1,6 +1,6 @@
 package com.wanderingverse.temp;
 
-import com.wanderingverse.config.AiConfig;
+import com.wanderingverse.service.artificialintelligenceservice.OpenAiService;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,11 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class AiTest {
     @Resource
-    private AiConfig aiConfig;
+    private OpenAiService openAiService;
 
     @Test
-    void learnTest() {
-        String hello = aiConfig.chat("你好");
-        System.out.println(hello);
+    void AiChatTest() {
+        String response = openAiService.chat("Hello World");
     }
 }
