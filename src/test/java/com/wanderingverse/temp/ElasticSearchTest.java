@@ -2,7 +2,7 @@ package com.wanderingverse.temp;
 
 
 import com.wanderingverse.config.ElasticSearchConfig;
-import com.wanderingverse.mapper.blogmapper.BlogPostContentMapper;
+import com.wanderingverse.mapper.blog.BlogPostContentMapper;
 import com.wanderingverse.model.entity.BlogPostContentDO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

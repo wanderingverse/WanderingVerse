@@ -1,6 +1,6 @@
 package com.wanderingverse.config;
 
-import com.wanderingverse.mapper.systemmapper.VersionMapper;
+import com.wanderingverse.mapper.system.VersionMapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
