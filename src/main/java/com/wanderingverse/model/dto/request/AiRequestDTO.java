@@ -10,13 +10,14 @@ import lombok.Data;
 @Data
 public class AiRequestDTO {
 
+    /**
+     * 会话记忆 id
+     */
+    private String memoryId;
 
     /**
      * 提问内容
      */
     @NotBlank(message = "提问内容为空")
     private String question;
-
-
-    private String memoryId;
 }
