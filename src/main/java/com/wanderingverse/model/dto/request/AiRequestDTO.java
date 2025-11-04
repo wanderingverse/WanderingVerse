@@ -9,6 +9,14 @@ import lombok.Data;
  **/
 @Data
 public class AiRequestDTO {
+
+
+    /**
+     * 提问内容
+     */
     @NotBlank(message = "提问内容为空")
     private String question;
+
+
+    private String memoryId;
 }

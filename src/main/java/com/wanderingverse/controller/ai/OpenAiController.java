@@ -24,6 +24,6 @@ public class OpenAiController {
 
     @PostMapping(value = "/chat")
     public Flux<String> chat(@RequestBody @Valid AiRequestDTO aiRequest) {
-        return openAiService.chat(aiRequest.getQuestion());
+        return openAiService.chat(aiRequest.getMemoryId(), aiRequest.getQuestion());
     }
 }

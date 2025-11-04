@@ -1,6 +1,13 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.106.10.8:3306/wandering_verse
+    #    url: jdbc:mysql://39.106.10.8:3306/wandering_verse
     username: root
     password: 123456
+
+
+langchain4j:
+  open-ai:
+    streaming-chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      model-name: qwen-plus

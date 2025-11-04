@@ -26,7 +26,9 @@
     </root>
 
     <!-- 自定义配置日志级别 -->
-    <!-- hikari 数据库连接池日志-->
+    <!-- hikari 数据库连接池日志 -->
     <logger name="com.zaxxer.hikari" level="WARN"/>
+    <!-- langchain4j 日志 -->
+    <logger name="dev.langchain4j" level="DEBUG"/>
 
 </configuration>

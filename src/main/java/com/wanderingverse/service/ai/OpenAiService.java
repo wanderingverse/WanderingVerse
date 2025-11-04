@@ -1,5 +1,8 @@
 package com.wanderingverse.service.ai;
 
+import dev.langchain4j.service.MemoryId;
+import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.spring.AiService;
 import reactor.core.publisher.Flux;
 
@@ -13,8 +16,10 @@ public interface OpenAiService {
     /**
      * 向 AI 提问
      *
+     * @param memoryId memoryId
      * @param question question
      * @return answer
      */
-    Flux<String> chat(String question);
+    @SystemMessage(fromResource = "prompt/SystemPrompt.md")
+    Flux<String> chat(@MemoryId String memoryId, @UserMessage String question);
 }
