@@ -1,10 +1,13 @@
 package com.wanderingverse.controller.ai;
 
+import com.wanderingverse.model.dto.request.AiRequestDTO;
 import com.wanderingverse.service.ai.OpenAiService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -19,9 +22,8 @@ public class OpenAiController {
     @Resource
     private OpenAiService openAiService;
 
-    @RequestMapping("/chat")
-    public Flux<String> chat(@RequestParam String question) {
-        Flux<String> flux = openAiService.chat(question);
-        return flux;
+    @PostMapping(value = "/chat")
+    public Flux<String> chat(@RequestBody @Valid AiRequestDTO aiRequest) {
+        return openAiService.chat(aiRequest.getQuestion());
     }
 }

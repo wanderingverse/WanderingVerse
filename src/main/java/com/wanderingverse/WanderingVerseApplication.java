@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Slf4j
 @EnableAsync
 @SpringBootApplication
-@EnableLogRecord(tenant = "wanderingVerse")
+@EnableLogRecord(tenant = "default")
 public class WanderingVerseApplication {
     public static void main(String[] args) {
         SpringApplication.run(WanderingVerseApplication.class, args);

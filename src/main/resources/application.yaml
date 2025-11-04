@@ -1,5 +1,10 @@
 server:
   port: 3721
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
   ssl:
     key-store: classpath:certificate/wandering_verse.p12
     key-store-password: 123456
