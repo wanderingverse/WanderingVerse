@@ -41,12 +41,19 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  data:
+    redis:
+      host: 39.106.10.8
+      port: 6379
+      password: ${REDIS_PASSWORD}
+
 
 minio:
   url: http://39.106.10.8:9000
   access-key: minio_root_user
   secret-key: minio_root_password
   bucket-name: bucket-default
+
 
 langchain4j:
   open-ai:
