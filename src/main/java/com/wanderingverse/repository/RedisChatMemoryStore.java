@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
      */
     @Override
     public void updateMessages(Object memoryId, List<ChatMessage> chatMessageList) {
-        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), ChatMessageSerializer.messagesToJson(chatMessageList));
+        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), ChatMessageSerializer.messagesToJson(chatMessageList), Duration.ZERO);
     }
 
     @Override

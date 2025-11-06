@@ -1,3 +1,6 @@
+start transaction;
+
+truncate table toponym;
 INSERT INTO toponym (id, parent_id, name)
 VALUES (1, 0, '北京'),
        (2, 0, '天津'),
@@ -4042,3 +4045,14 @@ VALUES (1, 0, '北京'),
        (4041, 398, '葵青区'),
        (4042, 398, '离岛区'),
        (4063, 36, '南海家园');
+
+
+truncate table user;
+INSERT INTO user (id, username, password, nickname, email, phone_number, gender, avatar, user_status,
+                  delete_status, login_time, login_ipv4, login_ipv4_decimal, create_user_id,
+                  update_user_id, remark, create_time, update_time)
+VALUES (1, 'admin', '123456', 'admin', null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null);
+
+
+commit;
