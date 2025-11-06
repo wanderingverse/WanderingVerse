@@ -31,7 +31,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.wanderingverse.config.CommonConfig.HASHMAP_INITIAL_CAPACITY;
+import static com.wanderingverse.common.SystemCommon.HASHMAP_INITIAL_CAPACITY;
+
 
 /**
  * @author WanderingVerse

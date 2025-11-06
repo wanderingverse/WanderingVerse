@@ -16,8 +16,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-import static com.wanderingverse.config.CommonConfig.CONNECT_TIMEOUT_MILLIS;
-import static com.wanderingverse.config.CommonConfig.RESPONSE_TIMEOUT_MILLIS;
+import static com.wanderingverse.common.NetworkCommon.CONNECT_TIMEOUT_MILLIS;
+import static com.wanderingverse.common.NetworkCommon.RESPONSE_TIMEOUT_MILLIS;
 import static org.springframework.http.HttpMethod.*;
 
 /**

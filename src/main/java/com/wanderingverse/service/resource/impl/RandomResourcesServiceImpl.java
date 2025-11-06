@@ -19,10 +19,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.File;
 import java.util.UUID;
 
-import static com.wanderingverse.config.CommonConfig.BACKGROUND_IMAGE_DIRECTORY;
-import static com.wanderingverse.config.CommonConfig.IMAGE_DIRECTORY;
-import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_IMAGE_URL_1;
-import static com.wanderingverse.config.RandomResourcesConfig.RANDOM_TEXT_URL;
+import static com.wanderingverse.common.FilePathCommon.BACKGROUND_IMAGE_DIRECTORY;
+import static com.wanderingverse.common.FilePathCommon.IMAGE_DIRECTORY;
+import static com.wanderingverse.common.RandomResourcesCommon.RANDOM_IMAGE_URL_1;
+import static com.wanderingverse.common.RandomResourcesCommon.RANDOM_TEXT_URL;
 import static com.wanderingverse.util.CryptoUtils.sha256Hex;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
 

@@ -1,6 +1,6 @@
 package com.wanderingverse.controller.individual;
 
-import com.wanderingverse.model.TreeNode;
+import com.wanderingverse.model.bo.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 import com.wanderingverse.service.individual.LivingStateService;
 import com.wanderingverse.util.AjaxResult;

@@ -1,10 +1,14 @@
 package com.wanderingverse.config;
 
+import com.wanderingverse.repository.RedisChatMemoryStore;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static com.wanderingverse.common.AiCommon.MAX_MESSAGES;
 
 /**
  * @author lihui
@@ -13,16 +17,15 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 public class AiConfig {
-    /**
-     * 最大会话记录保存数
-     */
-    private static final int MAX_MESSAGES = 32;
+    @Resource
+    private RedisChatMemoryStore redisChatMemoryStore;
 
     @Bean
     public ChatMemoryProvider chatMemoryProvider() {
         return memoryId -> MessageWindowChatMemory.builder()
                                                   .id(memoryId)
                                                   .maxMessages(MAX_MESSAGES)
+                                                  .chatMemoryStore(redisChatMemoryStore)
                                                   .build();
     }
 }

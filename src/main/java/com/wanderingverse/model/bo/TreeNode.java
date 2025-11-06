@@ -1,4 +1,4 @@
-package com.wanderingverse.model;
+package com.wanderingverse.model.bo;
 
 import lombok.Data;
 

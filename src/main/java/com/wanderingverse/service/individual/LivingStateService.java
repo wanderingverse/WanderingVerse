@@ -1,6 +1,6 @@
 package com.wanderingverse.service.individual;
 
-import com.wanderingverse.model.TreeNode;
+import com.wanderingverse.model.bo.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 
 import java.util.List;

@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
-import static com.wanderingverse.config.CommonConfig.IMAGE_DIRECTORY;
-import static com.wanderingverse.config.CommonConfig.USER_FILE_DIRECTORY;
+import static com.wanderingverse.common.FilePathCommon.IMAGE_DIRECTORY;
+import static com.wanderingverse.common.FilePathCommon.USER_FILE_DIRECTORY;
 import static com.wanderingverse.util.FileUtils.generateUniqueFileName;
 
 /**

@@ -2,7 +2,7 @@ package com.wanderingverse.service.individual.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wanderingverse.mapper.individual.LivingStateMapper;
-import com.wanderingverse.model.TreeNode;
+import com.wanderingverse.model.bo.TreeNode;
 import com.wanderingverse.model.entity.LivingStateDO;
 import com.wanderingverse.service.individual.LivingStateService;
 import jakarta.annotation.Resource;

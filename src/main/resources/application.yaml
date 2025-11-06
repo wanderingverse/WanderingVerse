@@ -21,10 +21,10 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active: prod
+    active:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/wandering_verse
+    url: jdbc:mysql://127.0.0.1:3307/wandering_verse
     username: root
     password: 123456
   elasticsearch:
@@ -43,10 +43,9 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
   data:
     redis:
-      host: 39.106.10.8
+      host: 127.0.0.1
       port: 6379
-      password: ${REDIS_PASSWORD}
-
+      password:
 
 minio:
   url: http://39.106.10.8:9000
@@ -60,8 +59,8 @@ langchain4j:
     streaming-chat-model:
       base-url: https://openrouter.ai/api/v1
       # 写入环境变量
-      api-key: ${AI_API_KEY}
-      model-name: deepseek/deepseek-chat-v3.1:free
+      api-key: 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
+      model-name: qwen/qwen3-235b-a22b:free
       # 输出请求日志
       log-requests: true
       # 输出响应日志

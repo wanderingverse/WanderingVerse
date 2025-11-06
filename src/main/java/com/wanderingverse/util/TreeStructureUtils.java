@@ -1,6 +1,6 @@
 package com.wanderingverse.util;
 
-import com.wanderingverse.model.TreeNode;
+import com.wanderingverse.model.bo.TreeNode;
 import lombok.Data;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.wanderingverse.config.CommonConfig.HASHMAP_INITIAL_CAPACITY;
+import static com.wanderingverse.common.SystemCommon.HASHMAP_INITIAL_CAPACITY;
 
 /**
  * 通用树结构构造器

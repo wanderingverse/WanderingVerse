@@ -1,11 +1,11 @@
-package com.wanderingverse.config;
+package com.wanderingverse.common;
 
 
 /**
  * @author WanderingVerse
  * @since 2025/08/16 17:11
  **/
-public class RandomResourcesConfig {
+public class RandomResourcesCommon {
     /**
      * 随机图片 url
      */
