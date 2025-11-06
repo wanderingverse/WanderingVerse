@@ -1,8 +1,8 @@
 package com.wanderingverse.repository;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.lang.TypeReference;
 import dev.langchain4j.data.message.ChatMessage;
+import dev.langchain4j.data.message.ChatMessageDeserializer;
+import dev.langchain4j.data.message.ChatMessageSerializer;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class RedisChatMemoryStore implements ChatMemoryStore {
     @Resource
-    private RedisTemplate<String, Object> redisTemplateForChatMessageList;
+    private RedisTemplate<String, String> redisTemplateForChatMessageList;
 
     /**
      * 获取会话消息列表
@@ -27,9 +27,8 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
      */
     @Override
     public List<ChatMessage> getMessages(Object memoryId) {
-        Object messagesObject = redisTemplateForChatMessageList.opsForValue().get(memoryId.toString());
-        return Convert.convert(new TypeReference<>() {
-        }, messagesObject);
+        String messagesObject = redisTemplateForChatMessageList.opsForValue().get(memoryId.toString());
+        return ChatMessageDeserializer.messagesFromJson(messagesObject);
     }
 
 
@@ -41,7 +40,7 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
      */
     @Override
     public void updateMessages(Object memoryId, List<ChatMessage> chatMessageList) {
-        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), chatMessageList);
+        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), ChatMessageSerializer.messagesToJson(chatMessageList));
     }
 
     @Override
