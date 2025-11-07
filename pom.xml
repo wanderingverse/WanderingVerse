@@ -142,6 +142,12 @@
             <artifactId>langchain4j-reactor</artifactId>
             <version>1.8.0-beta15</version>
         </dependency>
+        <!-- LangChain4J Easy RAG -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-easy-rag</artifactId>
+            <version>1.8.0-beta15</version>
+        </dependency>
 
 
     </dependencies>
