@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * 博客文章表
  *
  * @author lihui
- * @date 2025/05/09 15:03
+ * @since 2025/05/09 15:03
  */
 @Data
 @TableName("blog_post")
@@ -22,7 +22,7 @@ public class BlogPostDO {
      * 博客文章表主键 id
      */
     @TableId("id")
-    private String id;
+    private Long id;
 
     /**
      * 文章标题
@@ -41,13 +41,25 @@ public class BlogPostDO {
      * 作者 id
      */
     @TableField("author_id")
-    private String authorId;
+    private Long authorId;
 
     /**
      * 正文 id
      */
     @TableField("content_id")
-    private String contentId;
+    private Long contentId;
+
+    /**
+     * 写作地点 id
+     */
+    @TableField("toponym_id")
+    private Long toponymId;
+
+    /**
+     * 封面图片 url
+     */
+    @TableField("cover_picture_url")
+    private String coverPictureUrl;
 
     /**
      * 删除状态

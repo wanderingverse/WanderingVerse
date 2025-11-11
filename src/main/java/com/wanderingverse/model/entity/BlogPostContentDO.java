@@ -19,7 +19,7 @@ public class BlogPostContentDO {
      * 博客文章内容表主键 id
      */
     @TableId("id")
-    private String id;
+    private Long id;
 
     /**
      * 正文内容

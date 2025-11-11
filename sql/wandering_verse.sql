@@ -73,6 +73,27 @@ CREATE TABLE permission
     update_time     datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='权限表';
 
+drop table if exists blog_category;
+CREATE TABLE blog_category
+(
+    id            bigint unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '文章分类表主键 id',
+    category_name varchar(16)     NOT NULL UNIQUE COMMENT '分类名称',
+    sort_order    bigint unsigned NOT NULL UNIQUE COMMENT '排序',
+    create_time   datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time   datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='文章分类表 blog_category';
+
+drop table if exists category_post;
+CREATE TABLE category_post
+(
+    id               bigint unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '分类-文章关联表主键 id',
+    blog_category_id bigint unsigned NOT NULL COMMENT '文章分类表主键 id',
+    blog_post_id     bigint unsigned NOT NULL COMMENT '博客文章表主键 id',
+    create_time      datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time      datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='分类-文章关联表 category_post';
+
+
 drop table if exists blog_post;
 CREATE TABLE blog_post
 (

@@ -24,16 +24,17 @@ public interface BlogPostService {
     /**
      * 获取博客文章列表
      *
-     * @param pageNum  当前页码
-     * @param pageSize 每页数量
+     * @param pageNum        当前页码
+     * @param pageSize       每页数量
+     * @param blogCategoryId 文章分类主键 id CategoryPostDO.blogCategoryId
      * @return IPage<BlogPostResponseDTO>
      */
-    IPage<BlogPostResponseDTO> getBlogPostList(Integer pageNum, Integer pageSize);
+    IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId);
 
     /**
      * 获取博客文章详情
      *
-     * @param id 博客 id
+     * @param id 博客文章表主键 id BlogPostDO.id
      * @return BlogPostResponseDTO
      */
     BlogPostResponseDTO getBlogPostDetail(Long id);

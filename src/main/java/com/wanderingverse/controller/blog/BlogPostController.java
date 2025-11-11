@@ -28,10 +28,11 @@ public class BlogPostController {
      * 获取博客文章列表
      */
     @GetMapping("/list")
-    public AjaxResult getBlogPostList(@RequestParam(defaultValue = "1") Integer pageNum,
-                                      @RequestParam(defaultValue = Integer.MAX_VALUE + "") Integer pageSize) {
-        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(pageNum, pageSize);
-        return AjaxResult.success("查询成功", blogPostPage);
+    public AjaxResult getBlogPostList(@RequestParam(defaultValue = "1") Long pageNum,
+                                      @RequestParam(defaultValue = Long.MAX_VALUE + "") Long pageSize,
+                                      @RequestParam(required = false) Long blogCategoryId) {
+        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(pageNum, pageSize, blogCategoryId);
+        return AjaxResult.success(blogPostPage);
     }
 
     /**
@@ -40,7 +41,7 @@ public class BlogPostController {
     @PostMapping("/add")
     public AjaxResult addBlogPost(@RequestBody @Valid BlogPostRequestDTO blogPost) {
         boolean result = blogPostService.addBlogPost(blogPost);
-        return result ? AjaxResult.success("添加成功") : AjaxResult.error("添加失败");
+        return result ? AjaxResult.success() : AjaxResult.error();
     }
 
     /**
@@ -49,6 +50,6 @@ public class BlogPostController {
     @GetMapping("/detail")
     public AjaxResult getBlogPostDetail(@RequestParam Long id) {
         BlogPostResponseDTO blogPost = blogPostService.getBlogPostDetail(id);
-        return AjaxResult.success("查询成功", blogPost);
+        return AjaxResult.success(blogPost);
     }
 }

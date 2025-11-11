@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 
 /**
  * 博客文章请求体对象
@@ -20,4 +22,9 @@ public class BlogPostRequestDTO extends BlogPostDO {
      */
     @NotBlank(message = "正文内容为空")
     private String content;
+
+    /**
+     * 文章分类 id 列表
+     */
+    private List<Long> blogCategoryIdList;
 }

@@ -4,6 +4,8 @@ import com.wanderingverse.model.entity.BlogPostDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 
 /**
  * 博客文章响应体对象
@@ -23,4 +25,14 @@ public class BlogPostResponseDTO extends BlogPostDO {
      * 作者名称
      */
     private String authorName;
+
+    /**
+     * 文章分类 id 列表
+     */
+    private List<Long> blogCategoryIdList;
+
+    /**
+     * 预计阅读时间，单位秒
+     */
+    private Long readingTimeInSeconds;
 }
