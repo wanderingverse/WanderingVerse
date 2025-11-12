@@ -9,8 +9,6 @@ public interface SystemResetService {
 
     /**
      * 重置数据库
-     *
-     * @return boolean
      */
-    boolean resetDatabase();
+    void resetDatabase();
 }

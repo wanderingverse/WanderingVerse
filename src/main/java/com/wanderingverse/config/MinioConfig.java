@@ -163,7 +163,7 @@ public class MinioConfig {
             return null;
         }
         if (expires == null || expires <= 0) {
-            expires = 60;
+            expires = 600;
         }
         GetPresignedObjectUrlArgs getPresignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
                                                                                        .method(Method.GET)

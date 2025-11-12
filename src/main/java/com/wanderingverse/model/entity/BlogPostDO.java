@@ -62,6 +62,12 @@ public class BlogPostDO {
     private String coverPictureUrl;
 
     /**
+     * 封面图片名
+     */
+    @TableField("cover_picture_name")
+    private String coverPictureName;
+
+    /**
      * 删除状态
      * <p>0：未删除
      * <p>1：已删除

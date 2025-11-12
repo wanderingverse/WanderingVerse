@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -80,14 +81,17 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId) {
+    public IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime) {
         MPJLambdaWrapper<BlogPostDO> blogPostQueryWrapper = new MPJLambdaWrapper<BlogPostDO>()
                 .selectAll(BlogPostDO.class)
                 .leftJoin(CategoryPostDO.class, CategoryPostDO::getBlogPostId, BlogPostDO::getId)
                 .eq(blogCategoryId != null, CategoryPostDO::getBlogCategoryId, blogCategoryId)
-                .innerJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
+                .ge(createStartTime != null, BlogPostDO::getCreateTime, createStartTime)
+                .le(createEndTime != null, BlogPostDO::getUpdateTime, createEndTime)
+                .leftJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
                 .select(BlogPostContentDO::getContent)
-                .groupBy(BlogPostDO::getId);
+                .groupBy(BlogPostDO::getId)
+                .orderByDesc(BlogPostDO::getCreateTime);
         IPage<BlogPostResponseDTO> blogPostPage = blogPostMapper.selectJoinPage(new Page<>(pageNum, pageSize), BlogPostResponseDTO.class, blogPostQueryWrapper);
         for (BlogPostResponseDTO blogPostResponseDTO : blogPostPage.getRecords()) {
             // 标记文章拥有的标签
@@ -106,7 +110,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     public BlogPostResponseDTO getBlogPostDetail(Long id) {
         MPJLambdaWrapper<BlogPostDO> blogPostQueryWrapper = new MPJLambdaWrapper<BlogPostDO>()
                 .selectAll(BlogPostDO.class)
-                .innerJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
+                .leftJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)
                 .select(BlogPostContentDO::getContent)
                 .eq(BlogPostDO::getId, id);
         return blogPostMapper.selectJoinOne(BlogPostResponseDTO.class, blogPostQueryWrapper);

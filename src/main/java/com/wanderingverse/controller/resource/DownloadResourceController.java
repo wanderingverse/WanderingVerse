@@ -7,10 +7,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 资源获取
@@ -56,11 +53,20 @@ public class DownloadResourceController {
     }
 
     /**
+     * 获取随机图片 URL
+     */
+    @GetMapping("/random/image/url")
+    public AjaxResult getRandomImagePreSignedUrl() {
+        String preSignedUrl = randomResourcesService.getRandomImagePreSignedUrl();
+        return AjaxResult.success(preSignedUrl);
+    }
+
+    /**
      * 获取随机一段文字
      */
     @GetMapping("/random/text")
-    public AjaxResult getRandomText() {
-        String randomText = randomResourcesService.getRandomText();
+    public AjaxResult getRandomText(@RequestParam(required = false) String randomTextType) {
+        String randomText = randomResourcesService.getRandomText(randomTextType);
         return AjaxResult.success(randomText);
     }
 }

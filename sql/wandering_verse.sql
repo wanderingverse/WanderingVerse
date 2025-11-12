@@ -97,23 +97,24 @@ CREATE TABLE category_post
 drop table if exists blog_post;
 CREATE TABLE blog_post
 (
-    id                BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章表主键 id',
-    title             TEXT COMMENT '文章标题',
-    summary           TEXT COMMENT '文章摘要',
-    author_id         BIGINT UNSIGNED COMMENT '作者 id',
-    content_id        BIGINT UNSIGNED COMMENT '正文 id',
-    toponym_id        BIGINT UNSIGNED COMMENT '写作地点 id',
-    cover_picture_url VARCHAR(256) COMMENT '封面图片 url',
-    delete_status     TINYINT COMMENT '删除状态',
-    create_time       DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+    id                 BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章表主键 id',
+    title              TEXT NOT NULL COMMENT '文章标题',
+    summary            TEXT COMMENT '文章摘要',
+    author_id          BIGINT UNSIGNED COMMENT '作者 id',
+    content_id         BIGINT UNSIGNED COMMENT '正文 id',
+    toponym_id         BIGINT UNSIGNED COMMENT '写作地点 id',
+    cover_picture_url  VARCHAR(256) COMMENT '封面图片 url',
+    cover_picture_name VARCHAR(64) COMMENT '封面图片名',
+    delete_status      TINYINT COMMENT '删除状态',
+    create_time        DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time        DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='博客文章表';
 
 drop table if exists blog_post_content;
 CREATE TABLE blog_post_content
 (
     id      BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '博客文章内容表主键 id',
-    content TEXT COMMENT '正文内容'
+    content MEDIUMTEXT COMMENT '正文内容'
 ) COMMENT ='博客文章内容表';
 
 drop table if exists daily_life;

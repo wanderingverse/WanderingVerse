@@ -23,7 +23,7 @@ public class SystemResetController {
 
     @DeleteMapping("/database")
     public AjaxResult resetDatabase() {
-        boolean result = systemResetService.resetDatabase();
-        return result ? AjaxResult.success("重置数据库成功") : AjaxResult.error("重置数据库失败");
+        systemResetService.resetDatabase();
+        return AjaxResult.success();
     }
 }

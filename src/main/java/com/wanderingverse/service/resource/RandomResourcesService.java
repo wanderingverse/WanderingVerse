@@ -1,6 +1,7 @@
 package com.wanderingverse.service.resource;
 
 
+import com.wanderingverse.common.RandomTextTypeEnum;
 import org.springframework.http.ResponseEntity;
 
 
@@ -17,10 +18,20 @@ public interface RandomResourcesService {
      */
     ResponseEntity<byte[]> getRandomImage();
 
+
     /**
-     * 获取随机文字
+     * 获取随机图片 URL
      *
      * @return String
      */
-    String getRandomText();
+    String getRandomImagePreSignedUrl();
+
+    /**
+     * 获取随机文字
+     *
+     * @param randomTextType 文字类型
+     * @return String
+     * @see RandomTextTypeEnum
+     */
+    String getRandomText(String randomTextType);
 }

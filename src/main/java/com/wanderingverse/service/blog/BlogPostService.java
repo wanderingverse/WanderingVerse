@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wanderingverse.model.dto.request.BlogPostRequestDTO;
 import com.wanderingverse.model.dto.response.BlogPostResponseDTO;
 
+import java.time.LocalDateTime;
+
 
 /**
  * 博客文章 Service
@@ -24,12 +26,14 @@ public interface BlogPostService {
     /**
      * 获取博客文章列表
      *
-     * @param pageNum        当前页码
-     * @param pageSize       每页数量
-     * @param blogCategoryId 文章分类主键 id CategoryPostDO.blogCategoryId
+     * @param pageNum         当前页码
+     * @param pageSize        每页数量
+     * @param blogCategoryId  文章分类主键 id CategoryPostDO.blogCategoryId
+     * @param createStartTime 创建时间起始查询范围
+     * @param createEndTime   创建时间结束查询范围
      * @return IPage<BlogPostResponseDTO>
      */
-    IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId);
+    IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime);
 
     /**
      * 获取博客文章详情

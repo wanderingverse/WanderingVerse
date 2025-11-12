@@ -1,5 +1,6 @@
 package com.wanderingverse.service.resource.impl;
 
+import com.wanderingverse.common.RandomTextTypeEnum;
 import com.wanderingverse.config.MinioConfig;
 import com.wanderingverse.model.dto.response.PoetryResponseDTO;
 import com.wanderingverse.model.entity.PoetryDO;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.File;
@@ -22,7 +24,7 @@ import java.util.UUID;
 import static com.wanderingverse.common.FilePathCommon.BACKGROUND_IMAGE_DIRECTORY;
 import static com.wanderingverse.common.FilePathCommon.IMAGE_DIRECTORY;
 import static com.wanderingverse.common.RandomResourcesCommon.RANDOM_IMAGE_URL_1;
-import static com.wanderingverse.common.RandomResourcesCommon.RANDOM_TEXT_URL;
+import static com.wanderingverse.common.RandomTextTypeEnum.Poetry;
 import static com.wanderingverse.util.CryptoUtils.sha256Hex;
 import static com.wanderingverse.util.HttpUtils.buildResponseEntity;
 
@@ -52,23 +54,22 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     }
 
     @Override
-    public String getRandomText() {
-        PoetryDO poetry = null;
-        String url = UriComponentsBuilder.fromUriString(RANDOM_TEXT_URL).build().toUriString();
-        PoetryResponseDTO poetryResponse = webClientService.fetch(null, url, HttpMethod.GET, null, PoetryResponseDTO.class);
-        if (!ObjectUtils.isEmpty(poetryResponse)) {
-            poetry = new PoetryDO().setTitle(poetryResponse.getOrigin())
-                                   .setAuthor(poetryResponse.getAuthor())
-                                   .setContent(poetryResponse.getContent())
-                                   .setCategory(poetryResponse.getCategory())
-                                   .setSha256(sha256Hex(poetryResponse.getContent()));
-            // 异步备份至数据库
-            poetryResourceService.saveAsync(poetry);
-        } else {
-            // 尝试从数据库获取
-            poetry = poetryResourceService.getRandomPoetry();
+    public String getRandomImagePreSignedUrl() {
+        return UriComponentsBuilder.fromUriString(RANDOM_IMAGE_URL_1).build().toUriString();
+    }
+
+    @Override
+    public String getRandomText(String randomTextType) {
+        if (!StringUtils.hasText(randomTextType)) {
+            randomTextType = Poetry.getRandomTextType();
         }
-        return poetry.getContent();
+        RandomTextTypeEnum randomTextTypeEnum = RandomTextTypeEnum.getRandomTextTypeEnum(randomTextType);
+        switch (randomTextTypeEnum) {
+            case Poetry:
+                return getRandomPoem(randomTextTypeEnum);
+            default:
+                return "";
+        }
     }
 
 
@@ -87,5 +88,24 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
             imageBytes = imageOfFetch;
         }
         return imageBytes;
+    }
+
+    private String getRandomPoem(RandomTextTypeEnum randomTextTypeEnum) {
+        PoetryDO poetry = new PoetryDO();
+        String url = UriComponentsBuilder.fromUriString(randomTextTypeEnum.getRandomTextUrl()).build().toUriString();
+        PoetryResponseDTO poetryResponse = webClientService.fetch(null, url, HttpMethod.GET, null, PoetryResponseDTO.class);
+        if (!ObjectUtils.isEmpty(poetryResponse)) {
+            poetry.setTitle(poetryResponse.getOrigin())
+                  .setAuthor(poetryResponse.getAuthor())
+                  .setContent(poetryResponse.getContent())
+                  .setCategory(poetryResponse.getCategory())
+                  .setSha256(sha256Hex(poetryResponse.getContent()));
+            // 异步备份至数据库
+            poetryResourceService.saveAsync(poetry);
+        } else {
+            // 尝试从数据库获取
+            poetry = poetryResourceService.getRandomPoetry();
+        }
+        return poetry.getContent();
     }
 }

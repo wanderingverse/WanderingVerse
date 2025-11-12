@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 
 /**
  * 博客文章 Controller
@@ -30,8 +32,10 @@ public class BlogPostController {
     @GetMapping("/list")
     public AjaxResult getBlogPostList(@RequestParam(defaultValue = "1") Long pageNum,
                                       @RequestParam(defaultValue = Long.MAX_VALUE + "") Long pageSize,
-                                      @RequestParam(required = false) Long blogCategoryId) {
-        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(pageNum, pageSize, blogCategoryId);
+                                      @RequestParam(required = false) Long blogCategoryId,
+                                      @RequestParam(required = false) LocalDateTime createStartTime,
+                                      @RequestParam(required = false) LocalDateTime createEndTime) {
+        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(pageNum, pageSize, blogCategoryId, createStartTime, createEndTime);
         return AjaxResult.success(blogPostPage);
     }
 
