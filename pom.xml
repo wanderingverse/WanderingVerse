@@ -117,12 +117,20 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
 
-        <!-- hu_tool -->
+        <!-- huTool -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.38</version>
         </dependency>
+
+        <!-- OShi -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>6.9.1</version>
+        </dependency>
+
 
         <!-- LangChain4J -->
         <dependency>

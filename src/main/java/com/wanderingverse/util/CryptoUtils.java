@@ -11,6 +11,14 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 public class CryptoUtils {
+
+
+    /**
+     * 计算 SHA-256 哈希的十六进制字符串（hex）
+     *
+     * @param str 字符串
+     * @return String
+     */
     public static String sha256Hex(String str) {
         return DigestUtil.sha256Hex(str);
     }
