@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Duration;
 import java.util.Random;
+
+import static com.wanderingverse.util.SystemUtils.getCpuUsage;
+import static com.wanderingverse.util.SystemUtils.getMemoryUsage;
 
 /**
  * @author lihui
@@ -23,15 +25,15 @@ public class SystemInfoServiceImpl implements SystemInfoService {
 
 
     private SystemInfoResponseDTO buildSystemInfo() {
-        BigDecimal cpuUsage = BigDecimal.valueOf(Math.random() * 100).setScale(2, RoundingMode.HALF_UP);
-        BigDecimal memoryUsage = BigDecimal.valueOf(Math.random() * 100).setScale(2, RoundingMode.HALF_UP);
-        Long onlineVisitor = new Random().nextLong(100);
-        Long totalVisit = new Random().nextLong(1000000);
-        Long todayVisit = new Random().nextLong(1000);
-        Long monthVisit = new Random().nextLong(1000000);
-        Long totalUptime = new Random().nextLong(100000);
-        Long continuousUptime = new Random().nextLong(1000000);
-        Long remainingRuntime = new Random().nextLong(1000);
+        BigDecimal cpuUsage = getCpuUsage();
+        BigDecimal memoryUsage = getMemoryUsage();
+        Long onlineVisitor = new Random().nextLong(1, 100);
+        Long totalVisit = new Random().nextLong(1, 1000000);
+        Long todayVisit = new Random().nextLong(1, 1000);
+        Long monthVisit = new Random().nextLong(1, 1000000);
+        Long totalUptime = new Random().nextLong(1, 100000);
+        Long continuousUptime = new Random().nextLong(1, 1000000);
+        Long remainingRuntime = new Random().nextLong(1, 1000);
         return new SystemInfoResponseDTO()
                 .setCpuUsage(cpuUsage)
                 .setMemoryUsage(memoryUsage)

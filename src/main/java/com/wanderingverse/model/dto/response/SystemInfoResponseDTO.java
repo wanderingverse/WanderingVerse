@@ -58,7 +58,7 @@ public class SystemInfoResponseDTO {
     private Long continuousUptime;
 
     /**
-     * 服务器剩余可运行时间（到期时间）
+     * 服务器剩余可运行时间
      * <p>单位：秒
      */
     private Long remainingRuntime;
