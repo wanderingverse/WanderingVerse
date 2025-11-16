@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * 生活状态表 living_state
  *
  * @author lihui
- * @date 2025/5/13 0:20
+ * @since 2025/5/13 0:20
  **/
 @Data
 @TableName("living_state")
@@ -41,7 +41,6 @@ public class LivingStateDO {
      * 父节点 id
      */
     @TableField("parent_id")
-    @NotBlank(message = "父节点 id 不能为空")
     private String parentId;
 
     /**

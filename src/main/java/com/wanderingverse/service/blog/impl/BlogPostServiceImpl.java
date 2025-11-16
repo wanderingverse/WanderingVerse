@@ -64,7 +64,7 @@ public class BlogPostServiceImpl implements BlogPostService {
         blogPost.setTitle(blogPostRequest.getTitle());
         blogPost.setSummary(blogPostRequest.getSummary());
         // todo 未来是登录后获取用户 id
-        blogPost.setAuthorId(1L);
+        blogPost.setAuthorId("1");
         blogPost.setContentId(blogPostContent.getId());
         blogPost.setDeleteStatus((byte) 0);
         if (blogPost.getSummary().isBlank()) {
@@ -81,7 +81,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime) {
+    public IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, String blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime) {
         MPJLambdaWrapper<BlogPostDO> blogPostQueryWrapper = new MPJLambdaWrapper<BlogPostDO>()
                 .selectAll(BlogPostDO.class)
                 .leftJoin(CategoryPostDO.class, CategoryPostDO::getBlogPostId, BlogPostDO::getId)
@@ -98,16 +98,16 @@ public class BlogPostServiceImpl implements BlogPostService {
             MPJLambdaWrapper<CategoryPostDO> categoryPostQueryWrapper = new MPJLambdaWrapper<CategoryPostDO>()
                     .select(CategoryPostDO::getBlogCategoryId)
                     .eq(CategoryPostDO::getBlogPostId, blogPostResponseDTO.getId());
-            List<Long> blogCategoryIdList = categoryPostMapper.selectJoinList(Long.class, categoryPostQueryWrapper);
+            List<String> blogCategoryIdList = categoryPostMapper.selectJoinList(String.class, categoryPostQueryWrapper);
             blogPostResponseDTO.setBlogCategoryIdList(blogCategoryIdList);
             // todo 估算阅读时间，算法或者分词器
-            blogPostResponseDTO.setReadingTimeInSeconds(184L);
+            blogPostResponseDTO.setReadingTimeInSeconds("184");
         }
         return blogPostPage;
     }
 
     @Override
-    public BlogPostResponseDTO getBlogPostDetail(Long id) {
+    public BlogPostResponseDTO getBlogPostDetail(String id) {
         MPJLambdaWrapper<BlogPostDO> blogPostQueryWrapper = new MPJLambdaWrapper<BlogPostDO>()
                 .selectAll(BlogPostDO.class)
                 .leftJoin(BlogPostContentDO.class, BlogPostContentDO::getId, BlogPostDO::getContentId)

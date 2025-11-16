@@ -20,16 +20,14 @@ public interface LivingStateService {
      */
     boolean addLivingState(LivingStateDO livingState);
 
-
     /**
-     * 获取生活状态列表
+     * 获取生活状态节点树列表
      *
      * @param id   节点 id
      * @param mode 列表结构。1：树结构，2：扁平列表结构
      * @return List<TreeNode < LivingStateDO>>
      */
-    List<TreeNode<LivingStateDO>> getLivingStateList(String id, Integer mode);
-
+    List<TreeNode<LivingStateDO>> getLivingStateTreeList(String id, Integer mode);
 
     /**
      * 获取生活状态详情
@@ -37,5 +35,14 @@ public interface LivingStateService {
      * @param id LivingStateDO.id
      * @return LivingStateDO
      */
-    LivingStateDO getLivingStateDetail(Long id);
+    LivingStateDO getLivingStateDetail(String id);
+
+
+    /**
+     * 删除生活状态
+     *
+     * @param id LivingStateDO.id
+     * @return boolean
+     */
+    boolean deleteLivingState(String id);
 }

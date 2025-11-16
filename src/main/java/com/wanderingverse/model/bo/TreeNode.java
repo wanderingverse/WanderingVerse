@@ -27,7 +27,7 @@ public class TreeNode<T> {
 
     /**
      * 父节点 id
-     * <p>空 或 0表示根节点
+     * <p>空 或 0 表示根节点
      */
     private String parentId;
 

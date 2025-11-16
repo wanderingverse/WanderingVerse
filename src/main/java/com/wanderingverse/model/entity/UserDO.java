@@ -23,7 +23,7 @@ public class UserDO {
      * 用户表主键 id
      */
     @TableId("id")
-    private Long id;
+    private String id;
 
     /**
      * 用户名
@@ -101,13 +101,13 @@ public class UserDO {
      * 创建用户 id
      */
     @TableField("create_user_id")
-    private Long createUserId;
+    private String createUserId;
 
     /**
      * 更新用户 id
      */
     @TableField("update_user_id")
-    private Long updateUserId;
+    private String updateUserId;
 
     /**
      * 备注

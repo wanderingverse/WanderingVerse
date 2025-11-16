@@ -24,19 +24,19 @@ public class CategoryPostDO {
      * 分类-文章关联表主键 id
      */
     @TableId("id")
-    private Long id;
+    private String id;
 
     /**
      * 文章分类表主键 id
      */
     @TableField("blog_category_id")
-    private Long blogCategoryId;
+    private String blogCategoryId;
 
     /**
      * 博客文章表主键 id
      */
     @TableField("blog_post_id")
-    private Long blogPostId;
+    private String blogPostId;
 
     /**
      * 创建时间

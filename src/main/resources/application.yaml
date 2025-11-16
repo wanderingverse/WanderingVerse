@@ -21,7 +21,7 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active:
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3307/wandering_verse
@@ -65,3 +65,13 @@ langchain4j:
       log-requests: true
       # 输出响应日志
       log-responses: true
+
+system:
+  info:
+    server:
+    # 服务器提供商
+    provider: AliCloud
+    # 服务器租赁时间
+    first-boot-time: 2025-04-25T16:42:21
+    # 服务器到期时间
+    lease-expiration-time: 2026-04-26T00:00:00

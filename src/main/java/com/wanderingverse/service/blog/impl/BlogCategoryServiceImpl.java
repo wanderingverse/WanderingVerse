@@ -37,12 +37,12 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
     }
 
     @Override
-    public boolean deleteBlogCategory(Long id) {
+    public boolean deleteBlogCategory(String id) {
         return blogCategoryMapper.deleteById(id) > 0;
     }
 
     @Override
-    public boolean bindCategoryAndPost(List<Long> blogCategoryIdList, Long blogPostId) {
+    public boolean bindCategoryAndPost(List<String> blogCategoryIdList, String blogPostId) {
         if (CollectionUtils.isEmpty(blogCategoryIdList) || blogPostId == null) {
             return false;
         }

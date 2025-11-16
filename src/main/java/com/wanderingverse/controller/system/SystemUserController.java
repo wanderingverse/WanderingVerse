@@ -37,7 +37,7 @@ public class SystemUserController {
      * 更新用户头像
      */
     @PutMapping("/avatar")
-    public AjaxResult updateUserAvatar(@RequestParam Long userId, @RequestParam MultipartFile file) throws IOException {
+    public AjaxResult updateUserAvatar(@RequestParam String userId, @RequestParam MultipartFile file) throws IOException {
         boolean result = systemUserService.updateUserAvatar(userId, file);
         return result ? AjaxResult.success() : AjaxResult.error("用户头像更新失败");
     }

@@ -28,38 +28,38 @@ public class SystemInfoResponseDTO {
     /**
      * 在线访客数
      */
-    private Long onlineVisitor;
+    private String onlineVisitor;
 
     /**
      * 总访问量
      */
-    private Long totalVisit;
+    private String totalVisit;
 
     /**
      * 今日累计访问量
      */
-    private Long todayVisit;
+    private String todayVisit;
 
     /**
      * 当月访问量
      */
-    private Long monthVisit;
+    private String monthVisit;
 
     /**
      * 服务器累计运行时间
      * <p>单位：秒
      */
-    private Long totalUptime;
+    private String totalUptime;
 
     /**
      * 服务器持续运行时间
      * <p>单位：秒
      */
-    private Long continuousUptime;
+    private String continuousUptime;
 
     /**
      * 服务器剩余可运行时间
      * <p>单位：秒
      */
-    private Long remainingRuntime;
+    private String remainingRuntime;
 }

@@ -45,7 +45,7 @@ public class BlogCategoryController {
      * 删除博客分类
      */
     @DeleteMapping("/{id}")
-    public AjaxResult deleteBlogCategory(@PathVariable Long id) {
+    public AjaxResult deleteBlogCategory(@PathVariable String id) {
         boolean result = blogCategoryService.deleteBlogCategory(id);
         return result ? AjaxResult.success() : AjaxResult.error();
     }

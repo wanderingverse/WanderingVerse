@@ -26,5 +26,5 @@ public class BlogPostRequestDTO extends BlogPostDO {
     /**
      * 文章分类 id 列表
      */
-    private List<Long> blogCategoryIdList;
+    private List<String> blogCategoryIdList;
 }

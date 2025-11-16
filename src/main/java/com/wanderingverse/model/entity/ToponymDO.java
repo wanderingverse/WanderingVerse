@@ -5,25 +5,32 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+
 /**
- * 博客文章内容表
+ * 地名表
  *
- * @author lihui
- * @since 2025/05/14 12:38
- */
+ * @author WanderingVerse
+ * @since 2025/11/15 21:44
+ **/
 @Data
-@TableName("blog_post_content")
-public class BlogPostContentDO {
+@TableName("toponym")
+public class ToponymDO {
 
     /**
-     * 博客文章内容表主键 id
+     * 地名表主键 id
      */
     @TableId("id")
     private String id;
 
     /**
-     * 正文内容
+     * 父级地理位置 id
      */
-    @TableField("content")
-    private String content;
+    @TableField("parent_id")
+    private String parentId;
+
+    /**
+     * 地名
+     */
+    @TableField("name")
+    private String name;
 }

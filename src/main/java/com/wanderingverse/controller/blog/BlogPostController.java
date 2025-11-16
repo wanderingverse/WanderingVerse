@@ -30,12 +30,12 @@ public class BlogPostController {
      * 获取博客文章列表
      */
     @GetMapping("/list")
-    public AjaxResult getBlogPostList(@RequestParam(defaultValue = "1") Long pageNum,
-                                      @RequestParam(defaultValue = Long.MAX_VALUE + "") Long pageSize,
-                                      @RequestParam(required = false) Long blogCategoryId,
+    public AjaxResult getBlogPostList(@RequestParam(defaultValue = "1") String pageNum,
+                                      @RequestParam(defaultValue = Long.MAX_VALUE + "") String pageSize,
+                                      @RequestParam(required = false) String blogCategoryId,
                                       @RequestParam(required = false) LocalDateTime createStartTime,
                                       @RequestParam(required = false) LocalDateTime createEndTime) {
-        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(pageNum, pageSize, blogCategoryId, createStartTime, createEndTime);
+        IPage<BlogPostResponseDTO> blogPostPage = blogPostService.getBlogPostList(Long.valueOf(pageNum), Long.valueOf(pageSize), blogCategoryId, createStartTime, createEndTime);
         return AjaxResult.success(blogPostPage);
     }
 
@@ -52,7 +52,7 @@ public class BlogPostController {
      * 获取博客文章详情
      */
     @GetMapping("/detail")
-    public AjaxResult getBlogPostDetail(@RequestParam Long id) {
+    public AjaxResult getBlogPostDetail(@RequestParam String id) {
         BlogPostResponseDTO blogPost = blogPostService.getBlogPostDetail(id);
         return AjaxResult.success(blogPost);
     }

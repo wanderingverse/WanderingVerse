@@ -32,11 +32,11 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public UserResponseDTO getCurrentSystemUser() {
-        return getUserById(1L);
+        return getUserById("1");
     }
 
     @Override
-    public UserResponseDTO getUserById(Long userId) {
+    public UserResponseDTO getUserById(String userId) {
         MPJLambdaWrapper<UserDO> userLambdaQueryWrapper = new MPJLambdaWrapper<UserDO>()
                 .eq(UserDO::getId, userId);
         UserResponseDTO user = userMapper.selectJoinOne(UserResponseDTO.class, userLambdaQueryWrapper);
@@ -49,7 +49,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     @Override
-    public boolean updateUserAvatar(Long userId, MultipartFile file) throws IOException {
+    public boolean updateUserAvatar(String userId, MultipartFile file) throws IOException {
         // fixme 校验文件类型
         String fileName = generateUniqueFileName(file);
         fileName = USER_FILE_DIRECTORY + File.separator + IMAGE_DIRECTORY + File.separator + fileName;

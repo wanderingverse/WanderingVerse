@@ -26,7 +26,7 @@ public interface SystemUserService {
      * @param userId 用户 id
      * @return UserResponseDTO
      */
-    UserResponseDTO getUserById(Long userId);
+    UserResponseDTO getUserById(String userId);
 
     /**
      * 更新用户头像
@@ -36,7 +36,7 @@ public interface SystemUserService {
      * @return boolean
      * @throws IOException IOException
      */
-    boolean updateUserAvatar(Long userId, MultipartFile file) throws IOException;
+    boolean updateUserAvatar(String userId, MultipartFile file) throws IOException;
 
     /**
      * 更新用户信息

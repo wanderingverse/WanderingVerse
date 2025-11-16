@@ -33,7 +33,7 @@ public interface BlogPostService {
      * @param createEndTime   创建时间结束查询范围
      * @return IPage<BlogPostResponseDTO>
      */
-    IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, Long blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime);
+    IPage<BlogPostResponseDTO> getBlogPostList(Long pageNum, Long pageSize, String blogCategoryId, LocalDateTime createStartTime, LocalDateTime createEndTime);
 
     /**
      * 获取博客文章详情
@@ -41,5 +41,5 @@ public interface BlogPostService {
      * @param id 博客文章表主键 id BlogPostDO.id
      * @return BlogPostResponseDTO
      */
-    BlogPostResponseDTO getBlogPostDetail(Long id);
+    BlogPostResponseDTO getBlogPostDetail(String id);
 }

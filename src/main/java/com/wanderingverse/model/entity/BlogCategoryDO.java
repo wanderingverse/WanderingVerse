@@ -26,7 +26,7 @@ public class BlogCategoryDO {
      * 文章分类表主键 id
      */
     @TableId("id")
-    private Long id;
+    private String id;
 
     /**
      * 分类名称
@@ -40,7 +40,7 @@ public class BlogCategoryDO {
      */
     @NotNull(message = "排序为空")
     @TableField("sort_order")
-    private Long sortOrder;
+    private String sortOrder;
 
     /**
      * 创建时间

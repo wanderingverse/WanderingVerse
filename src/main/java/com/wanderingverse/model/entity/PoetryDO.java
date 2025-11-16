@@ -23,7 +23,7 @@ public class PoetryDO {
      * 诗词表主键 id
      */
     @TableField("id")
-    private Long id;
+    private String id;
 
     /**
      * 诗词名

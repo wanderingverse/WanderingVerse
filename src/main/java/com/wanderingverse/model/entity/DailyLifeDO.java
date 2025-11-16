@@ -25,20 +25,20 @@ public class DailyLifeDO {
      * 日常生活表主键 id
      */
     @TableField("id")
-    private Long id;
+    private String id;
 
     /**
      * 用户 id
      */
     @TableField("user_id")
-    private Long userId;
+    private String userId;
 
     /**
      * 生活状态 id
      */
     @TableField("living_state_id")
     @NotNull(message = "生活状态 id 不能为空")
-    private Long livingStateId;
+    private String livingStateId;
 
     /**
      * 开始时间

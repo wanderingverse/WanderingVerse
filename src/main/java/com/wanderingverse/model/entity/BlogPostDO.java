@@ -22,7 +22,7 @@ public class BlogPostDO {
      * 博客文章表主键 id
      */
     @TableId("id")
-    private Long id;
+    private String id;
 
     /**
      * 文章标题
@@ -41,19 +41,19 @@ public class BlogPostDO {
      * 作者 id
      */
     @TableField("author_id")
-    private Long authorId;
+    private String authorId;
 
     /**
      * 正文 id
      */
     @TableField("content_id")
-    private Long contentId;
+    private String contentId;
 
     /**
      * 写作地点 id
      */
     @TableField("toponym_id")
-    private Long toponymId;
+    private String toponymId;
 
     /**
      * 封面图片 url

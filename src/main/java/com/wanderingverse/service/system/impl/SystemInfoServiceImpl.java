@@ -20,7 +20,7 @@ import static com.wanderingverse.util.SystemUtils.getMemoryUsage;
 public class SystemInfoServiceImpl implements SystemInfoService {
     @Override
     public Flux<SystemInfoResponseDTO> getSystemInfo() {
-        return Flux.interval(Duration.ofSeconds(1)).map(tick -> buildSystemInfo());
+        return Flux.interval(Duration.ofSeconds(3)).map(tick -> buildSystemInfo());
     }
 
 
@@ -37,12 +37,12 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         return new SystemInfoResponseDTO()
                 .setCpuUsage(cpuUsage)
                 .setMemoryUsage(memoryUsage)
-                .setOnlineVisitor(onlineVisitor)
-                .setTotalVisit(totalVisit)
-                .setTodayVisit(todayVisit)
-                .setMonthVisit(monthVisit)
-                .setTotalUptime(totalUptime)
-                .setContinuousUptime(continuousUptime)
-                .setRemainingRuntime(remainingRuntime);
+                .setOnlineVisitor(String.valueOf(onlineVisitor))
+                .setTotalVisit(String.valueOf(totalVisit))
+                .setTodayVisit(String.valueOf(todayVisit))
+                .setMonthVisit(String.valueOf(monthVisit))
+                .setTotalUptime(String.valueOf(totalUptime))
+                .setContinuousUptime(String.valueOf(continuousUptime))
+                .setRemainingRuntime(String.valueOf(remainingRuntime));
     }
 }

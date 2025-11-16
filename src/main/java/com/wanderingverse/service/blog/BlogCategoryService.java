@@ -32,7 +32,7 @@ public interface BlogCategoryService {
      * @param id BlogCategoryDO.id
      * @return boolean
      */
-    boolean deleteBlogCategory(Long id);
+    boolean deleteBlogCategory(String id);
 
     /**
      * 绑定博客分类和文章
@@ -41,5 +41,5 @@ public interface BlogCategoryService {
      * @param blogPostId         BlogPostDO.id
      * @return boolean
      */
-    boolean bindCategoryAndPost(List<Long> blogCategoryIdList, Long blogPostId);
+    boolean bindCategoryAndPost(List<String> blogCategoryIdList, String blogPostId);
 }
