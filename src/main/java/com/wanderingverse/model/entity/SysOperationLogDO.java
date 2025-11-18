@@ -1,8 +1,10 @@
 package com.wanderingverse.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +16,14 @@ import java.time.LocalDateTime;
  * @since 2025/11/17 15:14
  */
 @Data
+@Accessors(chain = true)
 @TableName("sys_operation_log")
 public class SysOperationLogDO {
 
     /**
      * 操作日志表主键
      */
-    @TableField("id")
+    @TableId("id")
     private String id;
 
     /**

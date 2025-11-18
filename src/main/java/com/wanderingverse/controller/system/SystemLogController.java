@@ -1,5 +1,6 @@
 package com.wanderingverse.controller.system;
 
+import com.wanderingverse.model.entity.SysOperationLogDO;
 import com.wanderingverse.service.system.SysOperationLogService;
 import com.wanderingverse.util.AjaxResult;
 import jakarta.annotation.Resource;
@@ -7,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -25,8 +28,7 @@ public class SystemLogController {
      */
     @GetMapping("/operation-list")
     public AjaxResult getSysOperationLogList() {
-//        List<SysOperationLogDO> sysOperationLogList = sysOperationLogService.getSysOperationLogList();
-//        return AjaxResult.success(sysOperationLogList);
-        return AjaxResult.success();
+        List<SysOperationLogDO> sysOperationLogList = sysOperationLogService.getSysOperationLogList();
+        return AjaxResult.success(sysOperationLogList);
     }
 }

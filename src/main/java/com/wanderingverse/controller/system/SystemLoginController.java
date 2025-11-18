@@ -1,6 +1,5 @@
 package com.wanderingverse.controller.system;
 
-import com.mzt.logapi.starter.annotation.LogRecord;
 import com.wanderingverse.model.entity.UserDO;
 import com.wanderingverse.service.system.SystemLoginService;
 import com.wanderingverse.util.AjaxResult;
@@ -30,14 +29,9 @@ public class SystemLoginController {
      *
      * @param user 登录用户
      */
-    @LogRecord(success = "{{#user.username}}执行了测试方法1，请求了：{{#user.username}}，返回：{{#_ret}}",
-            fail = "用户登录失败。失败原因：{{#_errorMsg}}",
-            type = "用户测试",
-            bizNo = "0001")
     @PostMapping("")
     public AjaxResult login(@RequestBody UserDO user) {
         String token = systemLoginService.login(user);
         return AjaxResult.success();
-//        throw new IllegalArgumentException("测试异常");
     }
 }
