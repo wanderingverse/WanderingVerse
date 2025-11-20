@@ -2,6 +2,8 @@ package com.wanderingverse.util;
 
 import cn.hutool.system.oshi.OshiUtil;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -30,6 +32,16 @@ public class SystemUtils {
     public static BigDecimal getCpuUsage() {
         double cpuUsed = OshiUtil.getCpuInfo().getUsed();
         return new BigDecimal(cpuUsed).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * 获取 JVM 累计运行时长
+     *
+     * @return 运行时长，单位：秒
+     */
+    public static Long getJvmUptime() {
+        RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
+        return rb.getUptime() / 1000;
     }
 }
 
