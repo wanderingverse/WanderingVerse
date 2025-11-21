@@ -168,21 +168,22 @@ CREATE TABLE poetry
 drop table if exists sys_operation_log;
 CREATE TABLE sys_operation_log
 (
-    id                    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '操作日志表主键',
-    user_id               INT UNSIGNED COMMENT '用户 id',
-    operation_description VARCHAR(16) COMMENT '操作描述',
+    id                    BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '操作日志表主键',
+    user_id               BIGINT UNSIGNED COMMENT '用户 id',
+    operation_name        VARCHAR(16) COMMENT '操作名称',
     operation_type        VARCHAR(8) COMMENT '操作类型',
+    operation_description TEXT COMMENT '操作描述',
     operation_result      TINYINT COMMENT '操作结果',
     operation_time        DATETIME COMMENT '操作时间',
-    change_value          JSON COMMENT '变动值',
+    change_value          TEXT COMMENT '变动值',
     operation_path        VARCHAR(512) COMMENT '请求路径',
     request_parameter     JSON COMMENT '请求参数',
     response_parameter    JSON COMMENT '响应参数',
     user_ipv4             VARCHAR(16) COMMENT '用户 IPv4 地址',
     user_ipv4_decimal     INT UNSIGNED COMMENT '用户 IPv4 地址整型值',
-    operating_system      VARCHAR(16) COMMENT '操作系统名称',
-    device_type           VARCHAR(16) COMMENT '访问设备类型',
-    browser_info          VARCHAR(256) COMMENT '浏览器信息（名称、版本）',
+    operating_system      VARCHAR(64) COMMENT '操作系统名称',
+    device_type           VARCHAR(32) COMMENT '访问设备类型',
+    browser_info          VARCHAR(128) COMMENT '浏览器信息（名称、版本）',
     create_time           DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time           DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='操作日志表';

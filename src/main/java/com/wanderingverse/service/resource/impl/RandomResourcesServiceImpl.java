@@ -1,6 +1,9 @@
 package com.wanderingverse.service.resource.impl;
 
+import com.mzt.logapi.starter.annotation.LogRecord;
 import com.wanderingverse.common.RandomTextTypeEnum;
+import com.wanderingverse.common.SystemOperationLogNameCommon;
+import com.wanderingverse.common.SystemOperationLogTypeCommon;
 import com.wanderingverse.config.MinioConfig;
 import com.wanderingverse.model.dto.response.PoetryResponseDTO;
 import com.wanderingverse.model.entity.PoetryDO;
@@ -59,6 +62,7 @@ public class RandomResourcesServiceImpl implements RandomResourcesService {
     }
 
     @Override
+    @LogRecord(bizNo = "", type = SystemOperationLogNameCommon.GET_RESOURCE, subType = SystemOperationLogTypeCommon.QUERY, success = "{{#_ret}}")
     public String getRandomText(String randomTextType) {
         if (!StringUtils.hasText(randomTextType)) {
             randomTextType = Poetry.getRandomTextType();

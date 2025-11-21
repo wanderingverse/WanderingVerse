@@ -1,6 +1,9 @@
 package com.wanderingverse.service.system.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.wanderingverse.mapper.system.SysOperationLogMapper;
 import com.wanderingverse.model.dto.response.SystemInfoResponseDTO;
+import com.wanderingverse.model.entity.SysOperationLogDO;
 import com.wanderingverse.service.system.SystemInfoService;
 import com.wanderingverse.service.system.VisitorService;
 import jakarta.annotation.Resource;
@@ -11,7 +14,8 @@ import reactor.core.publisher.Flux;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 
 import static com.wanderingverse.util.SystemUtils.*;
 
@@ -25,6 +29,8 @@ public class SystemInfoServiceImpl implements SystemInfoService {
     private Environment environment;
     @Resource
     private VisitorService visitorService;
+    @Resource
+    private SysOperationLogMapper sysOperationLogMapper;
 
     @Override
     public Flux<SystemInfoResponseDTO> getSystemInfo() {
@@ -36,9 +42,9 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         BigDecimal cpuUsage = getCpuUsage();
         BigDecimal memoryUsage = getMemoryUsage();
         Long onlineVisitor = visitorService.getOnlineVisitorCount();
-        Long totalVisit = new Random().nextLong(1, 1000000);
-        Long todayVisit = new Random().nextLong(1, 1000);
-        Long monthVisit = new Random().nextLong(1, 1000000);
+        Long totalVisit = getTotalVisit();
+        Long todayVisit = getTodayVisit();
+        Long monthVisit = getMonthVisit();
         Long totalUptime = getTotalUptime();
         Long continuousUptime = getJvmUptime();
         Long remainingRuntime = getRemainingRuntime();
@@ -68,5 +74,43 @@ public class SystemInfoServiceImpl implements SystemInfoService {
     private Long getRemainingRuntime() {
         LocalDateTime leaseExpirationTime = LocalDateTime.parse(environment.getProperty("system.info.server.lease-expiration-time"));
         return Duration.between(LocalDateTime.now(), leaseExpirationTime).getSeconds();
+    }
+
+    /**
+     * 获取系统总访问量
+     */
+    private Long getTotalVisit() {
+        return getVisit(null, null);
+    }
+
+    /**
+     * 获取系统当日累计访问量
+     */
+    private Long getTodayVisit() {
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59);
+        return getVisit(startTime, endTime);
+    }
+
+    /**
+     * 获取系统当月累计访问量
+     */
+    private Long getMonthVisit() {
+        LocalDateTime startTime = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime endTime = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).withHour(23).withMinute(59).withSecond(59);
+        return getVisit(startTime, endTime);
+    }
+
+    /**
+     * 获取系统指定时间段的访问量
+     */
+    private Long getVisit(LocalDateTime startTime, LocalDateTime endTime) {
+        LambdaQueryWrapper<SysOperationLogDO> sysOperationLogLambdaQueryWrapper = new LambdaQueryWrapper<SysOperationLogDO>()
+                .select(SysOperationLogDO::getUserIpv4Decimal)
+                .ge(startTime != null, SysOperationLogDO::getCreateTime, startTime)
+                .le(endTime != null, SysOperationLogDO::getCreateTime, endTime)
+                .groupBy(SysOperationLogDO::getUserIpv4Decimal);
+        List<SysOperationLogDO> sysOperationLogDOList = sysOperationLogMapper.selectList(sysOperationLogLambdaQueryWrapper);
+        return (long) sysOperationLogDOList.size();
     }
 }

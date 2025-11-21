@@ -1,8 +1,6 @@
 package com.wanderingverse.service.system.impl;
 
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
-import com.mzt.logapi.starter.annotation.LogRecord;
-import com.wanderingverse.common.SystemOperationLogTypeCommon;
 import com.wanderingverse.config.MinioConfig;
 import com.wanderingverse.ex.ServiceException;
 import com.wanderingverse.mapper.system.UserMapper;
@@ -33,7 +31,6 @@ public class SystemUserServiceImpl implements SystemUserService {
     private MinioConfig minioConfig;
 
     @Override
-    @LogRecord(bizNo = "", success = "获取当前登录用户信息", type = SystemOperationLogTypeCommon.ADD)
     public UserResponseDTO getCurrentSystemUser() {
         return getUserById("1");
     }

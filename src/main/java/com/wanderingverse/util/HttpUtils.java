@@ -1,6 +1,9 @@
 package com.wanderingverse.util;
 
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import cn.hutool.core.net.Ipv4Util;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
+import cn.hutool.json.JSONUtil;
 import io.minio.org.apache.commons.validator.routines.InetAddressValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,9 +11,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author WanderingVerse
@@ -54,14 +61,39 @@ public class HttpUtils {
     }
 
     /**
+     * 获取 User-Agent
+     */
+    public static UserAgent getUserAgent() {
+        String userAgentString = Objects.requireNonNull(getHttpServletRequest()).getHeader(HttpHeaders.USER_AGENT);
+        if (StringUtils.hasText(userAgentString)) {
+            return UserAgentUtil.parse(userAgentString);
+        }
+        return null;
+    }
+
+    /**
+     * 获取请求 URI
+     */
+    public static String getRequestUri() {
+        return Objects.requireNonNull(getHttpServletRequest()).getRequestURI();
+    }
+
+    /**
+     * 获取请求参数
+     *
+     * @return JSON
+     */
+    public static String getRequestParam() {
+        Map<String, String[]> parameterMap = Objects.requireNonNull(getHttpServletRequest()).getParameterMap();
+        return JSONUtil.toJsonStr(parameterMap);
+    }
+
+
+    /**
      * 获取客户端 IPv4
      */
     public static String getClientIp() {
-        HttpServletRequest httpServletRequest = getHttpServletRequest();
-        if (ObjectUtils.isEmpty(httpServletRequest)) {
-            return null;
-        }
-        String remoteAddr = httpServletRequest.getRemoteAddr();
+        String remoteAddr = Objects.requireNonNull(getHttpServletRequest()).getRemoteAddr();
         return isValidIpv4(remoteAddr) ? remoteAddr : null;
     }
 
@@ -86,5 +118,15 @@ public class HttpUtils {
      */
     public static boolean isValidPort(int port) {
         return port > 0 && port < 65535;
+    }
+
+    /**
+     * 获取 IPv4 整型值
+     */
+    public static Long getIpv4Decimal(String ipv4) {
+        if (!isValidIpv4(ipv4)) {
+            return null;
+        }
+        return Ipv4Util.ipv4ToLong(ipv4);
     }
 }

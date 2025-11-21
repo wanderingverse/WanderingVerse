@@ -45,7 +45,15 @@ public class SysOperationLogDO {
     private String operationType;
 
     /**
+     * 操作描述
+     */
+    @TableField("operation_description")
+    private String operationDescription;
+
+    /**
      * 操作结果
+     * <p>0: 失败
+     * <p>1: 成功
      */
     @TableField("operation_result")
     private Byte operationResult;

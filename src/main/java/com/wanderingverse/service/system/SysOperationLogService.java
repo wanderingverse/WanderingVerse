@@ -21,10 +21,12 @@ public interface SysOperationLogService {
     /**
      * 写入一条操作日志
      *
-     * @param operationName   操作名称
-     * @param operationType   操作类型
-     * @param operationResult 操作结果
+     * @param operationName        操作名称
+     * @param operationType        操作类型
+     * @param operationResult      操作结果
+     * @param operationDescription 操作描述
+     * @param changeValue          变动值
      * @return boolean
      */
-    boolean insertSysOperationLog(String operationName, String operationType, Byte operationResult);
+    boolean insertSysOperationLog(String operationName, String operationType, Byte operationResult, String operationDescription, String changeValue);
 }

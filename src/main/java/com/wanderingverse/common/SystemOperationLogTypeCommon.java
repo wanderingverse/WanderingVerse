@@ -1,14 +1,9 @@
 package com.wanderingverse.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * @author WanderingVerse
  * @since 2025/11/18 20:57
  */
-@Getter
-@AllArgsConstructor
 public class SystemOperationLogTypeCommon {
     /**
      * 新增
