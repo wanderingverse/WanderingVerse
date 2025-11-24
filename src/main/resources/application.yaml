@@ -21,7 +21,7 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active: prod
+    active:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3307/wandering_verse
@@ -59,11 +59,17 @@ langchain4j:
     streaming-chat-model:
       base-url: https://openrouter.ai/api/v1
       # 写入环境变量
-      api-key: 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
-      model-name: qwen/qwen3-235b-a22b:free
+      api-key: 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
+      model-name: x-ai/grok-4.1-fast
       # 输出请求日志
       log-requests: true
       # 输出响应日志
+      log-responses: true
+    embedding-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: ${AI_API_KEY}
+      model-name: text-embedding-v4
+      log-requests: true
       log-responses: true
 
 system:

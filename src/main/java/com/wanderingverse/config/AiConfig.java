@@ -1,11 +1,14 @@
 package com.wanderingverse.config;
 
 import com.wanderingverse.repository.RedisChatMemoryStore;
+import com.wanderingverse.service.ai.RagDocumentLoaderService;
 import dev.langchain4j.data.document.Document;
-import dev.langchain4j.data.document.loader.ClassPathDocumentLoader;
+import dev.langchain4j.data.document.DocumentSplitter;
+import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStore;
@@ -29,6 +32,10 @@ import static com.wanderingverse.common.AiCommon.*;
 public class AiConfig {
     @Resource
     private RedisChatMemoryStore redisChatMemoryStore;
+    @Resource
+    private EmbeddingModel embeddingModel;
+    @Resource
+    private RagDocumentLoaderService ragDocumentLoaderService;
 
     @Bean
     public ChatMemoryProvider chatMemoryProvider() {
@@ -41,13 +48,17 @@ public class AiConfig {
 
     @Bean
     public EmbeddingStore<TextSegment> embeddingStore() {
-        // 从 resource 路径指定目录下加载所有文件（包括子目录中文件）并对应为文档（Document）
-        List<Document> documentList = ClassPathDocumentLoader.loadDocumentsRecursively("document");
+        // 加载 rag 文档
+        List<Document> documentList = ragDocumentLoaderService.load();
         // 初始化向量数据库操作对象，用于操作 langchain4j-easy-rag 提供的基于内存的向量数据库
         InMemoryEmbeddingStore<TextSegment> inMemoryEmbeddingStore = new InMemoryEmbeddingStore<>();
-        // 文档内容分割、向量化、存储到向量数据库
+        // 文档内容分割
+        DocumentSplitter documentSplitter = DocumentSplitters.recursive(MAX_CHARACTERS_PER_SEGMENT, MAX_OVERLAP_CHARACTERS);
+        // 向量化、存储到向量数据库
         EmbeddingStoreIngestor embeddingStoreIngestor = EmbeddingStoreIngestor.builder()
                                                                               .embeddingStore(inMemoryEmbeddingStore)
+                                                                              .documentSplitter(documentSplitter)
+                                                                              .embeddingModel(embeddingModel)
                                                                               .build();
         embeddingStoreIngestor.ingest(documentList);
         return inMemoryEmbeddingStore;
@@ -57,6 +68,7 @@ public class AiConfig {
     public ContentRetriever contentRetriever(EmbeddingStore<TextSegment> embeddingStore) {
         return EmbeddingStoreContentRetriever.builder()
                                              .embeddingStore(embeddingStore)
+                                             .embeddingModel(embeddingModel)
                                              // 余弦相似度，[0,1]
                                              .minScore(COSINE_SIMILARITY)
                                              // 最大返回结果数

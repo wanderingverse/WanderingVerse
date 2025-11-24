@@ -164,6 +164,44 @@ CREATE TABLE poetry
     update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT ='诗词表';
 
+drop table if exists ai_system_prompt;
+CREATE TABLE ai_system_prompt
+(
+    id          bigint unsigned auto_increment primary key COMMENT '系统提示词表主键 id',
+    prompt      mediumtext COMMENT '提示词',
+    create_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='系统提示词表';
+
+drop table if exists ai_rag;
+CREATE TABLE ai_rag
+(
+    id          bigint unsigned auto_increment primary key COMMENT 'RAG 知识库表主键 id',
+    content     mediumtext COMMENT '内容',
+    create_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='RAG 知识库表';
+
+drop table if exists ai_conversation;
+CREATE TABLE ai_conversation
+(
+    id          bigint unsigned auto_increment primary key COMMENT 'AI 会话表主键 id',
+    user_id     bigint unsigned COMMENT '用户表主键 id',
+    memory_id   bigint unsigned COMMENT '会话 id',
+    content_id  bigint unsigned COMMENT '会话内容 id',
+    create_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='AI 会话表';
+
+drop table if exists ai_conversation_content;
+CREATE TABLE ai_conversation_content
+(
+    id                 bigint unsigned auto_increment primary key COMMENT 'AI 会话内容表主键 id',
+    ai_conversation_id bigint unsigned COMMENT 'AI 会话表主键 id',
+    content            json COMMENT '会话内容',
+    create_time        datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time        datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) COMMENT ='AI 会话内容表';
 
 drop table if exists sys_operation_log;
 CREATE TABLE sys_operation_log

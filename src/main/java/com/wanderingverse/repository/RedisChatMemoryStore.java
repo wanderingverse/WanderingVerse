@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.time.Duration;
 import java.util.List;
 
+import static com.wanderingverse.common.AiCommon.MAX_SAVE_DAYS;
+
 /**
  * @author lihui
  * @since 2025/11/6 14:52
@@ -41,7 +43,7 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
      */
     @Override
     public void updateMessages(Object memoryId, List<ChatMessage> chatMessageList) {
-        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), ChatMessageSerializer.messagesToJson(chatMessageList), Duration.ofHours(1));
+        redisTemplateForChatMessageList.opsForValue().set(memoryId.toString(), ChatMessageSerializer.messagesToJson(chatMessageList), Duration.ofHours(MAX_SAVE_DAYS));
     }
 
     @Override
