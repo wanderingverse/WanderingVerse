@@ -37,6 +37,11 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         return Flux.interval(Duration.ofSeconds(3)).map(tick -> buildSystemInfo());
     }
 
+    @Override
+    public LocalDateTime getServerTime() {
+        return LocalDateTime.now();
+    }
+
 
     private SystemInfoResponseDTO buildSystemInfo() {
         BigDecimal cpuUsage = getCpuUsage();

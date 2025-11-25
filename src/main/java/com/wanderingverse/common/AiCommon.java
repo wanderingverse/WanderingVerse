@@ -20,7 +20,7 @@ public class AiCommon {
      * 余弦相似度
      * between [0,1]
      */
-    public static final double COSINE_SIMILARITY = 0.9;
+    public static final double COSINE_SIMILARITY = 0.75;
 
     /**
      * 最大 RAG 检索结果数

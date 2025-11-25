@@ -17,7 +17,6 @@ public class RagDocumentLoaderServiceImpl implements RagDocumentLoaderService {
     public List<Document> load() {
         List<Document> documentList = new ArrayList<>();
         documentList.add(Document.from("我的名字叫荒草"));
-        documentList.add(Document.from("你的名字叫小雅"));
         documentList.add(Document.from("今天天气是阴天"));
         return documentList;
     }

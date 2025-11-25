@@ -43,7 +43,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
   data:
     redis:
-      host: 127.0.0.1
+      host: 192.168.100.33
       port: 6379
       password:
 
@@ -59,7 +59,7 @@ langchain4j:
     streaming-chat-model:
       base-url: https://openrouter.ai/api/v1
       # 写入环境变量
-      api-key: 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
+      api-key: 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
       model-name: x-ai/grok-4.1-fast
       # 输出请求日志
       log-requests: true
@@ -71,7 +71,11 @@ langchain4j:
       model-name: text-embedding-v4
       log-requests: true
       log-responses: true
-
+      max-segments-per-batch: 10
+  community:
+    redis:
+      host: 192.168.100.33
+      port: 6379
 system:
   info:
     server:

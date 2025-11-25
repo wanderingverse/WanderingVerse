@@ -2,6 +2,7 @@ package com.wanderingverse.config;
 
 import com.wanderingverse.repository.RedisChatMemoryStore;
 import com.wanderingverse.service.ai.RagDocumentLoaderService;
+import dev.langchain4j.community.store.embedding.redis.RedisEmbeddingStore;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.DocumentSplitter;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
@@ -13,7 +14,6 @@ import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
-import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +35,8 @@ public class AiConfig {
     @Resource
     private EmbeddingModel embeddingModel;
     @Resource
+    private RedisEmbeddingStore redisEmbeddingStore;
+    @Resource
     private RagDocumentLoaderService ragDocumentLoaderService;
 
     @Bean
@@ -50,24 +52,22 @@ public class AiConfig {
     public EmbeddingStore<TextSegment> embeddingStore() {
         // 加载 rag 文档
         List<Document> documentList = ragDocumentLoaderService.load();
-        // 初始化向量数据库操作对象，用于操作 langchain4j-easy-rag 提供的基于内存的向量数据库
-        InMemoryEmbeddingStore<TextSegment> inMemoryEmbeddingStore = new InMemoryEmbeddingStore<>();
         // 文档内容分割
         DocumentSplitter documentSplitter = DocumentSplitters.recursive(MAX_CHARACTERS_PER_SEGMENT, MAX_OVERLAP_CHARACTERS);
         // 向量化、存储到向量数据库
         EmbeddingStoreIngestor embeddingStoreIngestor = EmbeddingStoreIngestor.builder()
-                                                                              .embeddingStore(inMemoryEmbeddingStore)
+                                                                              .embeddingStore(redisEmbeddingStore)
                                                                               .documentSplitter(documentSplitter)
                                                                               .embeddingModel(embeddingModel)
                                                                               .build();
         embeddingStoreIngestor.ingest(documentList);
-        return inMemoryEmbeddingStore;
+        return redisEmbeddingStore;
     }
 
     @Bean
-    public ContentRetriever contentRetriever(EmbeddingStore<TextSegment> embeddingStore) {
+    public ContentRetriever contentRetriever() {
         return EmbeddingStoreContentRetriever.builder()
-                                             .embeddingStore(embeddingStore)
+                                             .embeddingStore(redisEmbeddingStore)
                                              .embeddingModel(embeddingModel)
                                              // 余弦相似度，[0,1]
                                              .minScore(COSINE_SIMILARITY)
