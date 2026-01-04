@@ -1,6 +1,7 @@
 package com.wanderingverse.util;
 
 import cn.hutool.system.oshi.OshiUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -11,6 +12,7 @@ import java.math.RoundingMode;
  * @author lihui
  * @since 2025/11/14 14:25
  **/
+@Slf4j
 public class SystemUtils {
 
     /**

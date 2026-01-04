@@ -20,6 +20,7 @@ public interface OpenAiService {
      * @param question question
      * @return answer
      */
-    @SystemMessage(fromResource = "prompt/SystemPrompt.md")
+    @SystemMessage(fromResource = "prompt/GentleAndLivelyGirlfriend.md")
+//    @SystemMessage(fromResource = "prompt/ChineseBaziReading.md")
     Flux<String> chat(@MemoryId String memoryId, @UserMessage String question);
 }

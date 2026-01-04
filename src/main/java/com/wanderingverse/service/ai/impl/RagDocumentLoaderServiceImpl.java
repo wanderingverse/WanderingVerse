@@ -16,8 +16,7 @@ public class RagDocumentLoaderServiceImpl implements RagDocumentLoaderService {
     @Override
     public List<Document> load() {
         List<Document> documentList = new ArrayList<>();
-        documentList.add(Document.from("我的名字叫荒草"));
-        documentList.add(Document.from("今天天气是阴天"));
+//        documentList.add(Document.from("我的名字叫荒草"));
         return documentList;
     }
 }

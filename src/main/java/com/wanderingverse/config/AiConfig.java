@@ -42,10 +42,10 @@ public class AiConfig {
     @Bean
     public ChatMemoryProvider chatMemoryProvider() {
         return memoryId -> MessageWindowChatMemory.builder()
-                                                  .id(memoryId)
-                                                  .maxMessages(MAX_MESSAGES)
-                                                  .chatMemoryStore(redisChatMemoryStore)
-                                                  .build();
+                .id(memoryId)
+                .maxMessages(MAX_MESSAGES)
+                .chatMemoryStore(redisChatMemoryStore)
+                .build();
     }
 
     @Bean
@@ -56,10 +56,10 @@ public class AiConfig {
         DocumentSplitter documentSplitter = DocumentSplitters.recursive(MAX_CHARACTERS_PER_SEGMENT, MAX_OVERLAP_CHARACTERS);
         // 向量化、存储到向量数据库
         EmbeddingStoreIngestor embeddingStoreIngestor = EmbeddingStoreIngestor.builder()
-                                                                              .embeddingStore(redisEmbeddingStore)
-                                                                              .documentSplitter(documentSplitter)
-                                                                              .embeddingModel(embeddingModel)
-                                                                              .build();
+                .embeddingStore(redisEmbeddingStore)
+                .documentSplitter(documentSplitter)
+                .embeddingModel(embeddingModel)
+                .build();
         embeddingStoreIngestor.ingest(documentList);
         return redisEmbeddingStore;
     }
@@ -67,12 +67,12 @@ public class AiConfig {
     @Bean
     public ContentRetriever contentRetriever() {
         return EmbeddingStoreContentRetriever.builder()
-                                             .embeddingStore(redisEmbeddingStore)
-                                             .embeddingModel(embeddingModel)
-                                             // 余弦相似度，[0,1]
-                                             .minScore(COSINE_SIMILARITY)
-                                             // 最大返回结果数
-                                             .maxResults(MAX_RESULT_NUMBER_FOR_RAG)
-                                             .build();
+                .embeddingStore(redisEmbeddingStore)
+                .embeddingModel(embeddingModel)
+                // 余弦相似度，[0,1]
+                .minScore(COSINE_SIMILARITY)
+                // 最大返回结果数
+                .maxResults(MAX_RESULT_NUMBER_FOR_RAG)
+                .build();
     }
 }

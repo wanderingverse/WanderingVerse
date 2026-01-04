@@ -52,17 +52,18 @@ public class StartupLogger {
         log.info(String.format("%-20s : %s", "MySQL Version", versionMapper.getDataBaseVersion()));
         log.info(String.format("%-20s : %s", "MySQL URL", environment.getProperty("spring.datasource.url")));
         log.info(line);
+        log.info(line);
         log.info("""
-                         The application has started successfully.
-                          _    _                 _           _             _   _                   \s
-                         | |  | |               | |         (_)           | | | |                  \s
-                         | |  | | __ _ _ __   __| | ___ _ __ _ _ __   __ _| | | | ___ _ __ ___  ___\s
-                         | |/\\| |/ _` | '_ \\ / _` |/ _ \\ '__| | '_ \\ / _` | | | |/ _ \\ '__/ __|/ _ \\
-                         \\  /\\  / (_| | | | | (_| |  __/ |  | | | | | (_| \\ \\_/ /  __/ |  \\__ \\  __/
-                          \\/  \\/ \\__,_|_| |_|\\__,_|\\___|_|  |_|_| |_|\\__, |\\___/ \\___|_|  |___/\\___|
-                                                                      __/ |                        \s
-                                                                     |___/                         \s
-                         """);
+                The application has started successfully.
+                 _    _                 _           _             _   _                   \s
+                | |  | |               | |         (_)           | | | |                  \s
+                | |  | | __ _ _ __   __| | ___ _ __ _ _ __   __ _| | | | ___ _ __ ___  ___\s
+                | |/\\| |/ _` | '_ \\ / _` |/ _ \\ '__| | '_ \\ / _` | | | |/ _ \\ '__/ __|/ _ \\
+                \\  /\\  / (_| | | | | (_| |  __/ |  | | | | | (_| \\ \\_/ /  __/ |  \\__ \\  __/
+                 \\/  \\/ \\__,_|_| |_|\\__,_|\\___|_|  |_|_| |_|\\__, |\\___/ \\___|_|  |___/\\___|
+                                                             __/ |                        \s
+                                                            |___/                         \s
+                """);
         log.info(line);
     }
 }
