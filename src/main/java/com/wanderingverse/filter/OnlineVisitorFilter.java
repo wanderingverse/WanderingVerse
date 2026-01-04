@@ -3,11 +3,14 @@ package com.wanderingverse.filter;
 import com.wanderingverse.service.system.VisitorService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
+import static com.wanderingverse.util.HttpUtils.getClientIpFromHeader;
 
 /**
  * @author lihui
@@ -22,7 +25,7 @@ public class OnlineVisitorFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String ipv4 = servletRequest.getRemoteAddr();
+        String ipv4 = getClientIpFromHeader((HttpServletRequest) servletRequest);
         visitorService.onVisitorOnline(ipv4);
         filterChain.doFilter(servletRequest, servletResponse);
     }

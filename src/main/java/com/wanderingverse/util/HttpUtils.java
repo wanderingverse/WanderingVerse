@@ -1,6 +1,7 @@
 package com.wanderingverse.util;
 
 import cn.hutool.core.net.Ipv4Util;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import cn.hutool.json.JSONUtil;
@@ -93,10 +94,18 @@ public class HttpUtils {
      * 获取客户端 IPv4
      */
     public static String getClientIp() {
-        String remoteAddr = Objects.requireNonNull(getHttpServletRequest()).getRemoteAddr();
+        String remoteAddr = JakartaServletUtil.getClientIP(Objects.requireNonNull(getHttpServletRequest()));
         return isValidIpv4(remoteAddr) ? remoteAddr : null;
     }
 
+    /**
+     * 从请求头中获取 IPv4
+     */
+    public static String getClientIpFromHeader(HttpServletRequest request) {
+        String remoteAddr = JakartaServletUtil.getClientIP(Objects.requireNonNull(request));
+        return isValidIpv4(remoteAddr) ? remoteAddr : null;
+    }
+    
     /**
      * 校验 IPv4
      */

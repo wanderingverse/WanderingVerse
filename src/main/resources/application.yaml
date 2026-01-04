@@ -21,10 +21,10 @@ spring:
   application:
     name: WanderingVerse
   profiles:
-    active:
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3307/wandering_verse
+    url: jdbc:mysql://127.0.0.1:3306/wandering_verse
     username: root
     password: 123456
   elasticsearch:
@@ -43,7 +43,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
   data:
     redis:
-      host: 192.168.100.33
+      host: 127.0.0.1
       port: 6379
       password:
 
@@ -58,12 +58,9 @@ langchain4j:
   open-ai:
     streaming-chat-model:
       base-url: https://openrouter.ai/api/v1
-      # 写入环境变量
       api-key: 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
       model-name: x-ai/grok-4.1-fast
-      # 输出请求日志
       log-requests: true
-      # 输出响应日志
       log-responses: true
     embedding-model:
       base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
@@ -74,7 +71,7 @@ langchain4j:
       max-segments-per-batch: 10
   community:
     redis:
-      host: 192.168.100.33
+      host: 127.0.0.1
       port: 6379
 system:
   info:
