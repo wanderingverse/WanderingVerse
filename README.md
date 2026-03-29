@@ -29,4 +29,4 @@
 |------|------|--------|
 | **WanderingVerse** | 个人博客后端 | SpringBoot + MySQL |
 | **wandering-verse-react** | 个人博客前端 | React + TypeScript |
-| **learning-book** | 学习和日常笔记 | - |
+| **study-notebook** | 学习和日常笔记 | - |
